@@ -29,3 +29,6 @@ Route::put('/recipes/{id}', [RecipeController::class, 'update']);
 
 Route::get('/ingredients/create', [IngredientController::class, 'create']);
 Route::post('/ingredients', [IngredientController::class, 'store']);
+Route::get('/ingredients/{id}/edit', [IngredientController::class, 'edit']);
+Route::put('/ingredients/{id}', [IngredientController::class, 'update']);
+Route::delete('/ingredients/{id}', [IngredientController::class, 'delete']);

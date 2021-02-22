@@ -24,12 +24,35 @@
         <div>
             <h1>{{$recipe->title}}</h1>
             <div><a href="{{ url('/recipes/' . $recipe->id . '/edit') }}" class="ml-4 text-sm text-gray-700 underline">Edit recipe</a></div>
-            <div><a href="{{ url('/ingredients/create?recipeId=' . $recipe->id) }}" class="ml-4 text-sm text-gray-700 underline">Add ingredient</a></div>
+
+            <h2>Ingredienser</h2>
+            <a href="{{ url('/ingredients/create?recipeId=' . $recipe->id) }}" class="ml-4 text-sm text-gray-700 underline">Add ingredient</a>
             <table>
                 @foreach ($recipe->ingredients as $ingredient)
-                <tr><td>{{$ingredient->amount}} {{$ingredient->type}}</td><td>{{$ingredient->name}}</td></tr>
+                <tr>
+                    <td>{{$ingredient->amount}} {{$ingredient->type}}</td>
+                    <td>{{$ingredient->name}}</td>
+                    <td>
+                        <form action="/ingredients/{{$ingredient->id}}/edit" method="GET">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/ingredients/{{$ingredient->id}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="id" value="{{$ingredient->id}}"/>
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
                 @endforeach
             </table>
+
+            <h2>Sådan gør du</h2>
+            <p>
+                {{$recipe->body}}
+            </p>
 
 
         </div>
