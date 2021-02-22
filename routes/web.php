@@ -20,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('/recipes', [RecipeController::class, 'index']);
+Route::get('/recipes/{id}', [RecipeController::class, 'show']);

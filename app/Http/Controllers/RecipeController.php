@@ -48,7 +48,9 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
-        //
+        $recipe = Recipe::find($id);
+        $recipe->ingredients;
+        return view('recipe', ['recipe' => $recipe]);
     }
 
     /**
