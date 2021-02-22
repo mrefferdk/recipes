@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\IngredientController;
 
 
 /*
@@ -20,4 +21,11 @@ Route::get('/', function () {
 });
 
 Route::get('/recipes', [RecipeController::class, 'index']);
+Route::post('/recipes', [RecipeController::class, 'store']);
+Route::get('/recipes/create', [RecipeController::class, 'create']);
 Route::get('/recipes/{id}', [RecipeController::class, 'show']);
+Route::get('/recipes/{id}/edit', [RecipeController::class, 'edit']);
+Route::put('/recipes/{id}', [RecipeController::class, 'update']);
+
+Route::get('/ingredients/create', [IngredientController::class, 'create']);
+Route::post('/ingredients', [IngredientController::class, 'store']);

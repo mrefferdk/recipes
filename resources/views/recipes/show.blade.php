@@ -23,6 +23,8 @@
     <body class="antialiased">
         <div>
             <h1>{{$recipe->title}}</h1>
+            <div><a href="{{ url('/recipes/' . $recipe->id . '/edit') }}" class="ml-4 text-sm text-gray-700 underline">Edit recipe</a></div>
+            <div><a href="{{ url('/ingredients/create?recipeId=' . $recipe->id) }}" class="ml-4 text-sm text-gray-700 underline">Add ingredient</a></div>
             <table>
                 @foreach ($recipe->ingredients as $ingredient)
                 <tr><td>{{$ingredient->amount}} {{$ingredient->type}}</td><td>{{$ingredient->name}}</td></tr>
