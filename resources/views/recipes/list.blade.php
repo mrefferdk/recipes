@@ -36,10 +36,10 @@
                 </div>
             @endif
 
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 text-gray-700">
                 <ul>
                 @foreach ($recipes as $recipe)
-                    <li>{{$recipe->title}}</li>
+                        <li><a href="{{ url('/recipes/' . $recipe->id) }}">{{$recipe->title}}</a></li>
                 @endforeach
                 </ul>
 

@@ -23,9 +23,9 @@
             <form method="POST" action="/ingredients">
                 @csrf
                 <h1>Create new ingredient</h1>
-                <div>Name: <input type="text" name="name" placeholder="Write a name here" value="ingredient #1"/></div>
-                <div>Amount: <input type="text" name="amount" value="22"/></div>
-                <div>Type (g, kg, l etc): <input type="text" name="type" value="g"/></div>
+                <div>Name: <input type="text" name="name" placeholder="Write a name here"/></div>
+                <div>Amount: <input type="text" name="amount"/></div>
+                <div>Type (g, kg, l etc): <input type="text" name="type" placeholder="g"/></div>
                 <input type="hidden" name="order" value="1"/>
                 <input type="text" name="recipe_id" value="{{$recipeId}}"/>
                 <div><button type="submit">Save</button></div>
