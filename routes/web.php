@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\ContentfulController;
 
 
 /*
@@ -19,6 +20,9 @@ use App\Http\Controllers\IngredientController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/preview/{entryId}', [ContentfulController::class, 'show']);
+
 
 Route::get('/recipes', [RecipeController::class, 'index']);
 Route::post('/recipes', [RecipeController::class, 'store']);

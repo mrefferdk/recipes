@@ -108,6 +108,18 @@
       <path value="$PROJECT_DIR$/vendor/brick/math" />
       <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
       <path value="$PROJECT_DIR$/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/vendor/contentful/contentful" />
+      <path value="$PROJECT_DIR$/vendor/contentful/core" />
+      <path value="$PROJECT_DIR$/vendor/jean85/pretty-package-versions" />
+      <path value="$PROJECT_DIR$/vendor/contentful/rich-text" />
+      <path value="$PROJECT_DIR$/vendor/contentful/contentful-management" />
+      <path value="$PROJECT_DIR$/vendor/cache/void-adapter" />
+      <path value="$PROJECT_DIR$/vendor/cache/hierarchical-cache" />
+      <path value="$PROJECT_DIR$/vendor/cache/adapter-common" />
+      <path value="$PROJECT_DIR$/vendor/cache/tag-interop" />
+      <path value="$PROJECT_DIR$/vendor/clio/contentful-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

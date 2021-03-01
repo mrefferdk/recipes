@@ -113,6 +113,18 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/tinker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laravel/framework" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contentful/contentful" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contentful/core" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jean85/pretty-package-versions" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contentful/rich-text" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/contentful/contentful-management" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/cache/void-adapter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/cache/hierarchical-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/cache/adapter-common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/cache/tag-interop" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/clio/contentful-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

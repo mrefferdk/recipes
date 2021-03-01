@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use Clio\ContentfulClient\Client;
 
 class RecipeController extends Controller
 {
@@ -12,9 +13,12 @@ class RecipeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Client $contentfulClient)
     {
         $recipes = Recipe::all();
+
+        dd($contentfulClient->previewClient->getEntry('6ediXsTotNQIBX5mwMt52p'));
+
         return view('recipes.list', ['recipes' => $recipes]);
     }
 
