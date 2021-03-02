@@ -8,43 +8,73 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
+                <div class="p-6 bg-white border-b border-gray-20">
+                    <div class="float-right">
+                    @if(!$showEditOptions)
 
+                        <a href="{{ url('/recipes/' . $recipe->id . '/?showEditOptions') }}">
+                            <x-button>Vis redigeringsmuligheder</x-button>
+                        </a>
+                    @else
+                        <a href="{{ url('/recipes/' . $recipe->id) }}">
+                            <x-button>Gem redigeringsmuligheder</x-button>
+                        </a>
+                    @endif
+                        </div>
                     <h1>{{$recipe->title}}</h1>
 
-                    <a href="{{ url('/recipes/' . $recipe->id . '/edit') }}" class="ml-4 text-sm text-gray-700 underline"><x-button>Edit recipe</x-button></a>
 
-                        <h2 class="mt-10">Ingredienser</h2>
+                    @if($showEditOptions)
+                        <a href="{{ url('/recipes/' . $recipe->id . '/edit') }}">
+                            <x-button>Rediger opskrift</x-button>
+                        </a>
+                    @endif
 
-                    <a href="{{ url('/ingredients/create?recipeId=' . $recipe->id) }}" class="ml-4 text-sm text-gray-700 underline">
-                        <x-button>Add ingredient</x-button>
-                    </a>
-                        <table>
-                            @foreach ($recipe->ingredients as $ingredient)
-                                <tr>
-                                    <td class="pr-2">{{$ingredient->amount}} {{$ingredient->type}}</td>
-                                    <td>{{$ingredient->name}}</td>
-                                    <td>
-                                        <form action="/ingredients/{{$ingredient->id}}/edit" method="GET">
-                                            <x-button type="submit">Edit</x-button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="/ingredients/{{$ingredient->id}}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="id" value="{{$ingredient->id}}"/>
-                                            <x-button type="submit">Delete</x-button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </table>
 
-                        <h2 class="mt-10">Sådan gør du</h2>
-                        <p>
-                            {{$recipe->body}}
-                        </p>
+                    <div class="grid">
+                        <div class="col-start-1 col-end-3">
+                            <h3 class="mt-10">Ingredienser</h3>
+
+                            @if($showEditOptions)
+                            <a href="{{ url('/ingredients/create?recipeId=' . $recipe->id) }}" class="text-sm text-gray-700 underline">
+                                <x-button>Tilføj ingrediens</x-button>
+                            </a>
+                            @endif
+                            <table>
+                                @foreach ($recipe->ingredients as $ingredient)
+                                    <tr>
+                                        <td class="pr-10 py-1 font-bold">{{$ingredient->amount}} {{$ingredient->type}}</td>
+                                        <td>{{$ingredient->name}}</td>
+                                        @if($showEditOptions)
+                                            <td>
+                                                <form action="/ingredients/{{$ingredient->id}}/edit" method="GET">
+                                                    <x-button type="submit">Rediger</x-button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form action="/ingredients/{{$ingredient->id}}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <input type="hidden" name="id" value="{{$ingredient->id}}"/>
+                                                    <x-button type="submit">Fjern</x-button>
+                                                </form>
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                        <div class="col-start-3 col-end-12 px-2">
+                            <h2 class="mt-10">Sådan gør du</h2>
+                            <p>
+                                {{$recipe->body}}
+                            </p>
+                        </div>
+                    </div>
+
+
+
+
 
 
                 </div>

@@ -50,10 +50,13 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $recipe = Recipe::find($id);
-        return view('recipes.show', ['recipe' => $recipe]);
+        return view('recipes.show', [
+            'recipe' => $recipe,
+            'showEditOptions' => $request->exists('showEditOptions')
+        ]);
     }
 
     /**
