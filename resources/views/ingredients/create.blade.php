@@ -1,40 +1,47 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Effer\'s recipes') }}
+        </h2>
+    </x-slot>
 
-        <title>Recipes</title>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+                    <h1>Create new ingredient</h1>
 
-        <!-- Styles -->
+                    <form method="POST" action="/ingredients">
+                        @csrf
 
+                        <div class="mt-4">
+                            <x-label for="ingredient-name" :value="__('Navn')" />
+                            <x-input id="ingredient-name" class="block mt-1 w-1/2" type="text" name="name" required />
+                        </div>
+                        <div class="mt-4">
+                            <x-label for="ingredient-name" :value="__('Total tid')" />
+                            <x-input id="ingredient-name" class="block mt-1 w-1/2" type="text" name="time" required />
+                        </div>
+                        <div class="mt-4">
+                            <x-label for="ingredient-amount" :value="__('Mængde')" />
+                            <x-input id="ingredient-amount" class="block mt-1 w-1/7" type="text" name="amount" required />
+                        </div>
+                        <div class="mt-4">
+                            <x-label for="ingredient-type" :value="__('Type (g, kg, l etc)')" />
+                            <x-input id="ingredient-type" class="block mt-1 w-1/7" type="text" name="type" required />
+                        </div>
 
-        <style>
-            body {
-                font-family: 'Nunito';
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div>
-            <form method="POST" action="/ingredients">
-                @csrf
-                <h1>Create new ingredient</h1>
-                <div>Name: <input type="text" name="name" placeholder="Write a name here"/></div>
-                <div>Amount: <input type="text" name="amount"/></div>
-                <div>Type (g, kg, l etc): <input type="text" name="type" placeholder="g"/></div>
-                <input type="hidden" name="order" value="1"/>
-                <input type="text" name="recipe_id" value="{{$recipeId}}"/>
-                <div><button type="submit">Save</button></div>
+                        <input type="hidden" name="order" value="1"/>
+                        <input type="hidden" name="recipe_id" value="{{$recipeId}}"/>
 
-            </form>
+                        <div class="mt-4">
+                            <x-button class="" type="submit">Save</x-button>
+                        </div>
 
-
-
-
+                    </form>
+                </div>
+            </div>
         </div>
-    </body>
-</html>
+    </div>
+</x-app-layout>

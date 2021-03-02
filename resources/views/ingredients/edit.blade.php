@@ -1,41 +1,28 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Effer\'s recipes') }}
+        </h2>
+    </x-slot>
 
-        <title>Recipes</title>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <form method="POST" action="/ingredients/{{$ingredient->id}}">
+                        @csrf
+                        @method('PUT')
+                        <h1>Edit ingredient: {{$ingredient->name}}</h1>
+                        <div>Name: <input type="text" name="name" placeholder="Write a name here" value="{{$ingredient->name}}"/></div>
+                        <div>Amount: <input type="text" name="amount" value="{{$ingredient->amount}}"/></div>
+                        <div>Type (g, kg, l etc): <input type="text" name="type" value="{{$ingredient->type}}"/></div>
+                        <input type="hidden" name="order" value="1"/>
+                        <input type="text" name="recipe_id" value="{{$ingredient->recipe_id}}"/>
+                        <div><button type="submit">Save</button></div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-
-
-        <style>
-            body {
-                font-family: 'Nunito';
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div>
-            <form method="POST" action="/ingredients/{{$ingredient->id}}">
-                @csrf
-                @method('PUT')
-                <h1>Edit ingredient: {{$ingredient->name}}</h1>
-                <div>Name: <input type="text" name="name" placeholder="Write a name here" value="{{$ingredient->name}}"/></div>
-                <div>Amount: <input type="text" name="amount" value="{{$ingredient->amount}}"/></div>
-                <div>Type (g, kg, l etc): <input type="text" name="type" value="{{$ingredient->type}}"/></div>
-                <input type="hidden" name="order" value="1"/>
-                <input type="text" name="recipe_id" value="{{$ingredient->recipe_id}}"/>
-                <div><button type="submit">Save</button></div>
-
-            </form>
-
-
-
-
+                    </form>
+                </div>
+            </div>
         </div>
-    </body>
-</html>
+    </div>
+</x-app-layout>

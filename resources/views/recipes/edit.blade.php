@@ -1,45 +1,32 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Effer\'s recipes') }}
+        </h2>
+    </x-slot>
 
-        <title>Recipes</title>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <form method="POST" action="/recipes/{{$recipe->id}}">
+                        @csrf
+                        @method('PUT')
+                        <h1>Edit {{$recipe->title}}</h1>
+                        <div>Title: <input type="text" name="title" placeholder="Write a title here" value="{{$recipe->title}}"/></div>
+                        <div>Description: <textarea name="body">{{$recipe->body}}</textarea></div>
+                        <div>Number of persons:
+                            <select name="number">
+                                @for ($i = 0; $i < 10; $i++)
+                                    <option value="{{$i}}" @if ($i == $recipe->number)selected="selected"@endif>{{$i}}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div><button type="submit">Save</button></div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-
-
-        <style>
-            body {
-                font-family: 'Nunito';
-            }
-        </style>
-    </head>
-    <body class="antialiased">
-        <div>
-            <form method="POST" action="/recipes/{{$recipe->id}}">
-                @csrf
-                @method('PUT')
-                <h1>Edit {{$recipe->title}}</h1>
-                <div>Title: <input type="text" name="title" placeholder="Write a title here" value="{{$recipe->title}}"/></div>
-                <div>Description: <textarea name="body">{{$recipe->body}}</textarea></div>
-                <div>Number of persons:
-                    <select name="number">
-                        @for ($i = 0; $i < 10; $i++)
-                            <option value="{{$i}}" @if ($i == $recipe->number)selected="selected"@endif>{{$i}}</option>
-                        @endfor
-                    </select>
+                    </form>
                 </div>
-                <div><button type="submit">Save</button></div>
-
-            </form>
-
-
-
-
+            </div>
         </div>
-    </body>
-</html>
+    </div>
+</x-app-layout>
