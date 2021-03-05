@@ -15,7 +15,7 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes = Recipe::all();
-        return view('recipes.list', ['recipes' => $recipes]);
+        return view('recipes.list', ['recipes' => $recipes, 'isEditMode' => $this->adminService->isEditMode()]);
     }
 
     /**
@@ -55,7 +55,8 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         return view('recipes.show', [
             'recipe' => $recipe,
-            'showEditOptions' => $request->exists('showEditOptions')
+            'showEditOptions' => $request->exists('showEditOptions'),
+            'isEditMode' => $this->adminService->isEditMode()
         ]);
     }
 

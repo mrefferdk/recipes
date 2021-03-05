@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <a href="{{ route('edit-toggle', ['redirectUrl=' . htmlspecialchars(url()->full())]) }}">
+                        <x-button>Start/stop redigering</x-button>
+                    </a>
                 </div>
             </div>
 
@@ -75,7 +78,7 @@
                     </svg>
                 </div>
 
-                
+
             </div>
 
             <div class="mt-3 space-y-1">
