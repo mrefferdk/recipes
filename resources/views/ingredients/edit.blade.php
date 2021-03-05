@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1>Edit ingredient: {{$ingredient->name}}</h1>
-                    <form method="POST" action="/ingredients/{{$ingredient->id}}">
+                    <form method="POST" action="{{url('/ingredients/' . $ingredient->id)}}">
                         @csrf
                         @method('PUT')
                         <div class="mt-4">

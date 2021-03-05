@@ -12,7 +12,7 @@
 
                     <h1>Create new ingredient</h1>
 
-                    <form method="POST" action="/ingredients">
+                    <form method="POST" action="{{url('/ingredients/')}}">
                         @csrf
 
                         <div class="mt-4">

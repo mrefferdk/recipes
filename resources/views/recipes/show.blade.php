@@ -12,11 +12,11 @@
                     <div class="float-right">
                     @if(!$showEditOptions)
 
-                        <a href="{{ url('/recipes/' . $recipe->id . '/?showEditOptions') }}">
+                        <a href="{{ route('recipes.show', [$recipe->id, 'showEditOptions']) }}">
                             <x-button>Vis redigeringsmuligheder</x-button>
                         </a>
                     @else
-                        <a href="{{ url('/recipes/' . $recipe->id) }}">
+                        <a href="{{ route('recipes.show', $recipe->id) }}">
                             <x-button>Gem redigeringsmuligheder</x-button>
                         </a>
                     @endif
@@ -25,7 +25,7 @@
 
 
                     @if($showEditOptions)
-                        <a href="{{ url('/recipes/' . $recipe->id . '/edit') }}">
+                        <a href="{{ route('recipes.edit', $recipe->id) }}">
                             <x-button>Rediger opskrift</x-button>
                         </a>
                     @endif
@@ -36,7 +36,7 @@
                             <h3 class="mt-10">Ingredienser</h3>
 
                             @if($showEditOptions)
-                            <a href="{{ url('/ingredients/create?recipeId=' . $recipe->id) }}" class="text-sm text-gray-700 underline">
+                            <a href="{{ route('ingredients.create', 'recipeId=' . $recipe->id) }}">
                                 <x-button>Tilføj ingrediens</x-button>
                             </a>
                             @endif
@@ -47,12 +47,12 @@
                                         <td>{{$ingredient->name}}</td>
                                         @if($showEditOptions)
                                             <td>
-                                                <form action="/ingredients/{{$ingredient->id}}/edit" method="GET">
+                                                <form action="{{route('ingredients.edit', $ingredient->id)}}" method="GET">
                                                     <x-button type="submit">Rediger</x-button>
                                                 </form>
                                             </td>
                                             <td>
-                                                <form action="/ingredients/{{$ingredient->id}}" method="POST">
+                                                <form action="{{ route('ingredients.delete', $ingredient->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="id" value="{{$ingredient->id}}"/>

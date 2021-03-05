@@ -24,18 +24,18 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/recipes', [RecipeController::class, 'index']);
-Route::post('/recipes', [RecipeController::class, 'store'])->middleware('auth');
-Route::get('/recipes/create', [RecipeController::class, 'create'])->middleware('auth');
-Route::get('/recipes/{id}', [RecipeController::class, 'show']);
-Route::get('/recipes/{id}/edit', [RecipeController::class, 'edit'])->middleware('auth');
-Route::put('/recipes/{id}', [RecipeController::class, 'update'])->middleware('auth');
+Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes');
+Route::post('/recipes', [RecipeController::class, 'store'])->middleware('auth')->name('recipes.store');
+Route::get('/recipes/create', [RecipeController::class, 'create'])->middleware('auth')->name('recipes.create');
+Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
+Route::get('/recipes/{id}/edit', [RecipeController::class, 'edit'])->middleware('auth')->name('recipes.edit');
+Route::put('/recipes/{id}', [RecipeController::class, 'update'])->middleware('auth')->name('recipes.update');
 
-Route::get('/ingredients/create', [IngredientController::class, 'create'])->middleware('auth');
-Route::post('/ingredients', [IngredientController::class, 'store'])->middleware('auth');
-Route::get('/ingredients/{id}/edit', [IngredientController::class, 'edit'])->middleware('auth');
-Route::put('/ingredients/{id}', [IngredientController::class, 'update'])->middleware('auth');
-Route::delete('/ingredients/{id}', [IngredientController::class, 'delete'])->middleware('auth');
+Route::get('/ingredients/create', [IngredientController::class, 'create'])->middleware('auth')->name('ingredients.create');
+Route::post('/ingredients', [IngredientController::class, 'store'])->middleware('auth')->name('ingredients');
+Route::get('/ingredients/{id}/edit', [IngredientController::class, 'edit'])->middleware('auth')->name('ingredients.edit');
+Route::put('/ingredients/{id}', [IngredientController::class, 'update'])->middleware('auth')->name('ingredients.put');
+Route::delete('/ingredients/{id}', [IngredientController::class, 'delete'])->middleware('auth')->name('ingredients.delete');
 
 
 require __DIR__.'/auth.php';
