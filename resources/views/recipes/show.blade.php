@@ -9,8 +9,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-20">
-                    
+
                     <h1>{{$recipe->title}}</h1>
+                    <img src="{{ asset('/storage/uploads/'.$recipe->image_path) }}" alt="" title="">
+
 
 
                     @if($isEditMode)
@@ -56,7 +58,7 @@
                         <div class="col-start-3 col-end-12 px-2">
                             <h2 class="mt-10">Sådan gør du</h2>
                             <p>
-                                {{$recipe->body}}
+                                {!! nl2br(e($recipe->body)) !!}
                             </p>
                         </div>
                     </div>

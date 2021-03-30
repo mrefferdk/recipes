@@ -17,17 +17,14 @@ use App\Http\Controllers\IngredientController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/edit-toggle', [AdminController::class, 'toggleEditMode'])->name('edit-toggle');
 
-Route::get('/recipes', [RecipeController::class, 'index'])->name('recipes');
+Route::get('/', [RecipeController::class, 'index'])->name('recipes');
+Route::get('/recipes', [RecipeController::class, 'index']);
 Route::post('/recipes', [RecipeController::class, 'store'])->middleware('auth')->name('recipes.store');
 Route::get('/recipes/create', [RecipeController::class, 'create'])->middleware('auth')->name('recipes.create');
 Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');

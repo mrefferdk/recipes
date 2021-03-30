@@ -18,10 +18,6 @@
                             <x-input id="ingredient-name" class="block mt-1 w-1/2" type="text" name="name" value="{{$ingredient->name}}" required />
                         </div>
                         <div class="mt-4">
-                            <x-label for="ingredient-name" :value="__('Total tid (i minutter)')" />
-                            <x-input id="ingredient-name" class="block mt-1 w-1/7" type="text" name="minutes" value="" required />
-                        </div>
-                        <div class="mt-4">
                             <x-label for="ingredient-amount" :value="__('Mængde')" />
                             <x-input id="ingredient-amount" class="block mt-1 w-1/7" type="text" name="amount" value="{{$ingredient->amount}}" required />
                         </div>
