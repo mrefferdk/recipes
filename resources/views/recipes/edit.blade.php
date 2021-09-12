@@ -38,10 +38,9 @@
                             </select>
                         </div>
 
-                        <div>Number of persons:
-
+                        <div>
+                            <button type="submit" class="rounded-md shadow-sm px-5 mt-5 py-2 bg-blue-600 text-blue-50 hover:bg-blue-700 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">Save</button>
                         </div>
-                        <div><button type="submit" class="rounded-md shadow-sm px-5 py-2 bg-blue-600 text-blue-50 hover:bg-blue-700 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">Save</button></div>
 
                     </form>
                 </div>

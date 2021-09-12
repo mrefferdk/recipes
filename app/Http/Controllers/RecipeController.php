@@ -70,6 +70,8 @@ class RecipeController extends Controller
     public function show(Request $request, $id)
     {
         $recipe = Recipe::find($id);
+
+
         return view('recipes.show', [
             'recipe' => $recipe,
             'showEditOptions' => $request->exists('showEditOptions'),
@@ -86,7 +88,8 @@ class RecipeController extends Controller
     public function edit($id)
     {
         $recipe = Recipe::find($id);
-        return view('recipes.edit', ['recipe' => $recipe]);
+        $numberOfIngredientFields = count($recipe->ingredients) + 10;
+        return view('recipes.edit', ['recipe' => $recipe, 'numberOfIngredientFields' => $numberOfIngredientFields]);
     }
 
     /**

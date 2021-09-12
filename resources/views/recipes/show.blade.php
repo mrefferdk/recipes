@@ -9,11 +9,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-20">
-
-                    <h1>{{$recipe->title}}</h1>
-                    <img src="{{ asset('/storage/uploads/'.$recipe->image_path) }}" alt="" title="">
-
-
+                    @if($recipe->image_path)
+                    <div class="main-image w-full bg-cover h-40" style="background-image: url({{ asset('/storage/uploads/'.$recipe->image_path) }});"></div>
+                    @endif
+                    <h1 class="mt-10">{{$recipe->title}}</h1>
+                    <div class="recipeMetaData">
+                        Antal personer: {{$recipe->number}}.
+                        Tid: {{$recipe->cooking_time}} minutter
+                    </div>
 
                     @if($isEditMode)
                         <a href="{{ route('recipes.edit', $recipe->id) }}">
@@ -24,7 +27,7 @@
 
                     <div class="grid">
                         <div class="col-start-1 col-end-3">
-                            <h3 class="mt-10">Ingredienser</h3>
+                            <h3 class="mt-10 font-bold">Ingredienser</h3>
 
                             @if($isEditMode)
                             <a href="{{ route('ingredients.create', 'recipeId=' . $recipe->id) }}">
@@ -56,17 +59,12 @@
                             </table>
                         </div>
                         <div class="col-start-3 col-end-12 px-2">
-                            <h2 class="mt-10">Sådan gør du</h2>
+                            <h2 class="mt-10 font-bold">Sådan gør du</h2>
                             <p>
                                 {!! nl2br(e($recipe->body)) !!}
                             </p>
                         </div>
                     </div>
-
-
-
-
-
 
                 </div>
             </div>
