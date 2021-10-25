@@ -20,7 +20,7 @@ class AdminController extends Controller
 
     public function toggleEditMode(Request $request, AdminService $adminService)
     {
-        $adminService->toggleEditMode();
+        $adminService::toggleEditMode();
         return redirect($request->get('redirectUrl'));
     }
 }

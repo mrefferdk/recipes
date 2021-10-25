@@ -31433,6 +31433,16 @@ select {
           animation: bounce 1s infinite;
 }
 
+h1 {
+  font-family: myFirstFont;
+}
+
+@font-face {
+  font-family: myFirstFont;
+
+  src: url("/css/fonts/ZenOldMincho-Bold.ttf");
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

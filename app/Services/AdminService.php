@@ -11,17 +11,17 @@ class AdminService
     const EDIT_MODE_SESSION_KEY = 'isEditMode';
 
 
-    public function isEditMode()
+    public static function isEditMode()
     {
-        return $this->getSession();
+        return self::getSession();
     }
 
-    public function toggleEditMode()
+    public static function toggleEditMode()
     {
-        session([self::EDIT_MODE_SESSION_KEY => !$this->getSession()]);
+        session([self::EDIT_MODE_SESSION_KEY => !self::getSession()]);
     }
 
-    public function getSession()
+    private static function getSession()
     {
         return session(self::EDIT_MODE_SESSION_KEY, false);
     }

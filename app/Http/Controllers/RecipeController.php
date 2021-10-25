@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
@@ -14,7 +15,8 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $recipes = Recipe::all();
+        //$recipes = Recipe::where('active', )->get();
+        $recipes = DB::table('recipes')->orderBy('title')->get();
         return view('recipes.list', ['recipes' => $recipes, 'isEditMode' => $this->adminService->isEditMode()]);
     }
 
