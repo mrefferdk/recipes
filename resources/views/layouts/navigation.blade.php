@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-theme-orange-200 border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-1 mb-1">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-1">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -17,7 +17,7 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <a href="{{ route('edit-toggle', ['redirectUrl=' . htmlspecialchars(url()->full())]) }}"
-                    class="inline-flex items-center px-4 py-2   font-semibold text-xs uppercase tracking-widest focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out">
+                    class="inline-flex items-center px-4 py-2 font-semibold text-xs uppercase tracking-widest focus:outline-none focus:border-gray-900 focus:ring disabled:opacity-25 transition ease-in-out">
                         <x-button>
                             @php $isEditMode = \App\Services\AdminService::isEditMode(); @endphp
                             @if($isEditMode)

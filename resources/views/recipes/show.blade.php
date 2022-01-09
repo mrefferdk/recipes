@@ -8,18 +8,18 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-20">
+                <div class="p-6 bg-theme-orange text-theme-brown border-b border-gray-20">
                     @if($recipe->image_path)
                     <div class="main-image w-full bg-cover h-40" style="background-image: url({{ asset('/storage/uploads/'.$recipe->image_path) }});"></div>
                     @endif
-                    <h1 class="mt-10">{{$recipe->title}}</h1>
+                    <h1 class="mt-10 text-black">{{$recipe->title}}</h1>
                     <div class="recipeMetaData">
                         Antal personer: {{$recipe->number}}.
                         Tid: {{$recipe->cooking_time}} minutter
                     </div>
 
                     @if($isEditMode)
-                        <a href="{{ route('recipes.edit', $recipe->id) }}">
+                        <a class="no-underline" href="{{ route('recipes.edit', $recipe->id) }}">
                             <x-button>Rediger opskrift</x-button>
                         </a>
                     @endif
@@ -30,7 +30,7 @@
                             <h3 class="mt-10 font-bold">Ingredienser</h3>
 
                             @if($isEditMode)
-                            <a href="{{ route('ingredients.create', 'recipeId=' . $recipe->id) }}">
+                            <a class="no-underline" href="{{ route('ingredients.create', 'recipeId=' . $recipe->id) }}">
                                 <x-button>Tilføj ingrediens</x-button>
                             </a>
                             @endif
