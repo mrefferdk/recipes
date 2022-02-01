@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-theme-orange text-theme-brown border-b border-gray-20">
                     @if($recipe->image_path)
@@ -15,7 +15,8 @@
                     <h1 class="mt-10 text-black">{{$recipe->title}}</h1>
                     <div class="recipeMetaData">
                         Antal personer: {{$recipe->number}}.
-                        Tid: {{$recipe->cooking_time}} minutter
+                        @if($recipe->work_time)Tilberedning: {{$recipe->cooking_time}} min.@endif
+                        @if($recipe->work_time)Arbejdstid: {{$recipe->work_time}} min.@endif
                     </div>
 
                     @if($isEditMode)
@@ -37,7 +38,7 @@
                             <table>
                                 @foreach ($recipe->ingredients as $ingredient)
                                     <tr>
-                                        <td class="pr-10 py-1 font-bold">{{$ingredient->amount}} {{$ingredient->type}}</td>
+                                        <td class="pr-2 md:pr-7 py-1 font-bold">{{$ingredient->amount}} {{$ingredient->type}}</td>
                                         <td>{{$ingredient->name}}</td>
                                         @if($isEditMode)
                                             <td>
