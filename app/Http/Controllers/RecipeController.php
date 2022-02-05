@@ -51,7 +51,7 @@ class RecipeController extends Controller
          //   $fileModel->file_path = '/storage/' . $filePath;
         }
 
-
+        dd($request->all());
         $recipe = new Recipe();
         $recipe->title = $request->get('title');
         $recipe->body = $request->get('body');
@@ -60,6 +60,11 @@ class RecipeController extends Controller
         $recipe->work_time = $request->get('work_time');
         $recipe->image_path = $fileName;
         $recipe->save();
+
+        //foreach ($request->all();
+
+        dd($recipe);
+
         return redirect('/recipes');
     }
 
