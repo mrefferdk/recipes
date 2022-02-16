@@ -9,10 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <form method="POST" action="{{url('/recipes/' . $recipe->id)}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{$action}}" enctype="multipart/form-data">
                         @csrf
+                        @if ($method == 'PUT')
                         @method('PUT')
-                        <h1>Edit {{$recipe->title}}</h1>
+                        @endif
+                        <h1>{{$title}}</h1>
                         <input type="hidden" id="recipe_id" value="{{$recipe->id}}"/>
                         <div class="mt-4 w-96">
                             <x-label for="image" :value="__('Billede')" />
@@ -158,6 +160,11 @@
         document.getElementById('addIngredientRow').onclick = () => {
             addIngredientRow();
         }
+
+        tinymce.init({
+            selector: '#body',
+            height: '400',
+        });
 
 
 

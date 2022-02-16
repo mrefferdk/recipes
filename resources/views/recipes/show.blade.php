@@ -42,7 +42,7 @@
                         <div class="col-start-3 col-end-12 px-2">
                             <h2 class="mt-10 font-bold">Sådan gør du</h2>
                             <p>
-                                {!! nl2br(e($recipe->body)) !!}
+                                {!! $recipe->body !!}
                             </p>
                         </div>
                     </div>
