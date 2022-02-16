@@ -30,31 +30,11 @@
                         <div class="col-start-1 col-end-3">
                             <h3 class="mt-10 font-bold">Ingredienser</h3>
 
-                            @if($isEditMode)
-                            <a class="no-underline" href="{{ route('ingredients.create', 'recipeId=' . $recipe->id) }}">
-                                <x-button>Tilføj ingrediens</x-button>
-                            </a>
-                            @endif
                             <table>
                                 @foreach ($recipe->ingredients as $ingredient)
                                     <tr>
                                         <td class="pr-2 md:pr-7 py-1 font-bold">{{$ingredient->amount}} {{$ingredient->type}}</td>
                                         <td>{{$ingredient->name}}</td>
-                                        @if($isEditMode)
-                                            <td>
-                                                <form action="{{route('ingredients.edit', $ingredient->id)}}" method="GET">
-                                                    <x-button type="submit">Rediger</x-button>
-                                                </form>
-                                            </td>
-                                            <td>
-                                                <form action="{{ route('ingredients.delete', $ingredient->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="id" value="{{$ingredient->id}}"/>
-                                                    <x-button type="submit">Fjern</x-button>
-                                                </form>
-                                            </td>
-                                        @endif
                                     </tr>
                                 @endforeach
                             </table>

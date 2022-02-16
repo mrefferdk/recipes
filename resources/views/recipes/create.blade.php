@@ -58,9 +58,9 @@
 
     <div id="ingredientRow" class="hidden">
         <div class="mt-4">
-            <x-input :placeholder="__('Navn')" class="inline-block mt-1 w-1/6" type="text" name="ingredients[INGREDIENT_COUNT][name]"/>
-            <x-input :placeholder="__('Mængde')" class="inline-block mt-1 w-1/7" type="text" name="ingredients[INGREDIENT_COUNT][amount]"/>
-            <x-input :placeholder="__('Type (g, kg, l etc)')" class="inline-block mt-1 w-1/7" type="text" name="ingredients[INGREDIENT_COUNT][type]"/>
+            <x-input :placeholder="__('Navn')" class="inline-block mt-1 w-1/6" type="text" value="navnX" name="ingredients[INGREDIENT_COUNT][name]"/>
+            <x-input :placeholder="__('Mængde')" class="inline-block mt-1 w-1/7" type="text" value="amountX" name="ingredients[INGREDIENT_COUNT][amount]"/>
+            <x-input :placeholder="__('Type (g, kg, l etc)')" class="inline-block mt-1 w-1/7" type="text" value="typeX" name="ingredients[INGREDIENT_COUNT][type]"/>
         </div>
     </div>
 
@@ -77,11 +77,14 @@
         }
 
         function addIngredientRow() {
-            const template = document.getElementById('ingredientRow').children[0].cloneNode(true).toString();
-            console.log(replacePlaceholderCounter(template, 1));
-            const node = document.createElement("div") = template;
+            const template = document.getElementById('ingredientRow').children[0].cloneNode(true);
+            //console.log(template.innerHTML);
+            console.log(replacePlaceholderCounter(template.innerHTML, ingredientCounter));
+            let node = document.createElement("div");
+            node.innerHTML = replacePlaceholderCounter(template.innerHTML, ingredientCounter);
             console.log(node);
             document.getElementById('ingredientsContainer').appendChild(node);
+            ingredientCounter++;
         }
 
         function addIngredientRows(number) {
@@ -93,7 +96,9 @@
         autoheight(document.getElementById('body'));
         addIngredientRows(8);
 
-        document.getElementById('addIngredientRow').onclick = addIngredientRow;
+        document.getElementById('addIngredientRow').onclick = () => {
+            addIngredientRow();
+        }
 
 
 

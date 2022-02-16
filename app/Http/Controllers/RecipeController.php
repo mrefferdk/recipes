@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,6 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'image' => 'mimes:png,jpg|max:2048'
         ]);
@@ -51,7 +51,6 @@ class RecipeController extends Controller
          //   $fileModel->file_path = '/storage/' . $filePath;
         }
 
-        dd($request->all());
         $recipe = new Recipe();
         $recipe->title = $request->get('title');
         $recipe->body = $request->get('body');
@@ -61,9 +60,18 @@ class RecipeController extends Controller
         $recipe->image_path = $fileName;
         $recipe->save();
 
-        //foreach ($request->all();
 
-        dd($recipe);
+        $orderCounter = 0;
+        foreach ($request->ingredients as $ingredientData) {
+            // Check if all 3 are filled out
+            $ingredient = Ingredient::create([
+                'name' => $ingredientData['name'],
+                'amount' => $ingredientData['amount'],
+                'type' => $ingredientData['type'],
+                'recipe_id' => $recipe->id,
+                'order' => $orderCounter++,
+            ]);
+        }
 
         return redirect('/recipes');
     }
@@ -125,8 +133,29 @@ class RecipeController extends Controller
         $recipe->body = $request->get('body');
         $recipe->number = $request->get('number');
         $recipe->cooking_time = $request->get('cooking_time');
+        $recipe->work_time = $request->get('work_time');
         $recipe->image_path = $fileName;
         $recipe->save();
+
+        // Find all existing ingredients
+        $existingIngredients = $recipe->ingredients;
+
+        // Insert new ingredients
+        $orderCounter = 0;
+        foreach ($request->ingredients as $ingredientData) {
+            // TODO Check if all 3 are filled out
+            Ingredient::create([
+                'name' => $ingredientData['name'],
+                'amount' => $ingredientData['amount'],
+                'type' => $ingredientData['type'],
+                'recipe_id' => $recipe->id,
+                'order' => $orderCounter++,
+            ]);
+        }
+
+        // Delete old ingredients
+        Ingredient::whereIn('id', $existingIngredients->pluck('id'))->delete();
+
         return redirect('/recipes/' . $id);
     }
 
