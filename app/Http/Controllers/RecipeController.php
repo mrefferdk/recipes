@@ -69,6 +69,10 @@ class RecipeController extends Controller
 
         $orderCounter = 0;
         foreach ($request->ingredients as $ingredientData) {
+            if (!trim($ingredientData['name']) || !trim($ingredientData['amount']) || !trim($ingredientData['type'])) {
+                continue;
+            }
+
             // Check if all 3 are filled out
             $ingredient = Ingredient::create([
                 'name' => trim($ingredientData['name']),
@@ -155,7 +159,9 @@ class RecipeController extends Controller
         // Insert new ingredients
         $orderCounter = 0;
         foreach ($request->ingredients as $ingredientData) {
-            // TODO Check if all 3 are filled out
+            if (!trim($ingredientData['name']) || !trim($ingredientData['amount']) || !trim($ingredientData['type'])) {
+                continue;
+            }
             Ingredient::create([
                 'name' => trim($ingredientData['name']),
                 'amount' => trim($ingredientData['amount']),
