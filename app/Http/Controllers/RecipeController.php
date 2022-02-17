@@ -18,7 +18,7 @@ class RecipeController extends Controller
     public function index()
     {
         $recipes = DB::table('recipes')->orderBy('title')->get();
-        return view('recipes.list', ['recipes' => $recipes, 'isEditMode' => $this->adminService->isEditMode()]);
+        return view('recipes.list', ['recipes' => $recipes]);
     }
 
     /**
@@ -100,7 +100,6 @@ class RecipeController extends Controller
         return view('recipes.show', [
             'recipe' => $recipe,
             'showEditOptions' => $request->exists('showEditOptions'),
-            'isEditMode' => $this->adminService->isEditMode(),
             'totalTime' => $totalTime,
         ]);
     }

@@ -16,7 +16,6 @@ class RecipeController extends Controller
     {
         $recipes = Recipe::all();
         return json_encode($recipes);
-        //return view('recipes.list', ['recipes' => $recipes, 'isEditMode' => $this->adminService->isEditMode()]);
     }
 
     /**

@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IngredientController;
 
 
@@ -20,8 +19,6 @@ use App\Http\Controllers\IngredientController;
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
-
-Route::get('/edit-toggle', [AdminController::class, 'toggleEditMode'])->name('edit-toggle');
 
 Route::get('/', [RecipeController::class, 'index'])->name('recipes');
 Route::get('/recipes', [RecipeController::class, 'index']);

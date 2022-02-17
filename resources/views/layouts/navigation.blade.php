@@ -13,21 +13,6 @@
                             {{ $header }}
                         </div>
                 </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <a href="{{ route('edit-toggle', ['redirectUrl=' . htmlspecialchars(url()->full())]) }}"
-                    class="inline-flex items-center px-4 py-2 font-semibold text-xs uppercase tracking-widest focus:outline-none focus:border-gray-900 focus:ring disabled:opacity-25 transition ease-in-out">
-                        <x-button>
-                            @php $isEditMode = \App\Services\AdminService::isEditMode(); @endphp
-                            @if($isEditMode)
-                                Stop redigering
-                            @else
-                                Redigér
-                            @endif
-                        </x-button>
-                    </a>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->

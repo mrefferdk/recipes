@@ -9,13 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-theme-orange text-theme-brown border-b border-gray-200">
-                    @if($isEditMode)
+                    @auth
                     <div class="float-right">
                         <a href="{{ route('recipes.create') }}">
                             <x-button>Ny opskrift</x-button>
                         </a>
                     </div>
-                    @endif
+                    @endauth
                     <h1 class="text-theme-black">Opskrifter</h1>
                     <ul>
                         @foreach ($recipes as $recipe)

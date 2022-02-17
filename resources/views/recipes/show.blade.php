@@ -22,12 +22,11 @@
                         @if($recipe->work_time)Arbejdstid: {{$recipe->work_time}} min.@endif
                     </div>
 
-                    @if($isEditMode)
+                    @auth
                         <a class="no-underline" href="{{ route('recipes.edit', $recipe->id) }}">
                             <x-button>Rediger opskrift</x-button>
                         </a>
-                    @endif
-
+                    @endauth
 
                     <div class="grid">
                         <div class="col-start-1 col-end-3">
