@@ -18,9 +18,12 @@
                         <input type="hidden" id="recipe_id" value="{{$recipe->id}}"/>
 
 
-                        <div class="mt-4">
-                            <x-label for="title" :value="__('Overskrift')" />
-                            <x-input id="title" class="block mt-1 w-1/2" type="text" name="title" value="{{$recipe->title}}" required />
+                        <div class="mt-4 grid grid-cols-8 gap-4">
+                            <div class=" col-span-5">
+                                <x-label for="title" :value="__('Overskrift')" />
+                                <x-input id="title" class="block mt-1 w-100" type="text" name="title" value="{{$recipe->title}}" required />
+                            </div>
+
                         </div>
                         <div class="grid grid-cols-8 gap-4 mt-5">
                             <div class="mt-4 col-span-2">
@@ -42,20 +45,20 @@
                             </div>
                             <div class="mt-4">
                                 <x-label for="work_time" :value="__('Arbejdstid')" />
-                                <x-input id="work_time" placeholder="min." class="text-center block mt-1 w-16" type="text" name="cooking_time" value="{{$recipe->cooking_time}}" required />
+                                <x-input id="work_time" placeholder="min." class="text-center block mt-1 w-16" type="text" name="work_time" value="{{$recipe->work_time}}" required />
                             </div>
                         </div>
 
 
-                        <div class="grid grid-cols-2 gap-4 mt-5">
-                            <div>
+                        <div class="grid grid-cols-12 gap-4 mt-5">
+                            <div class="col-span-5">
                                 <h3>{{_('Ingredienser')}}</h3>
                                 <div id="ingredientsContainer"></div>
                                 <svg id="addIngredientRow" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 cursor-pointer mt-2" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V8z" clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <div>
+                            <div class="col-span-7">
                                 <h3>{{_('Beskrivelse')}}</h3>
                                 <textarea id="body" name="body" onkeyup="autoheight(this)" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full">{{$recipe->body}}</textarea>
                             </div>

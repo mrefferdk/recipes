@@ -15,7 +15,10 @@
                     <h1 class="mt-10 text-black">{{$recipe->title}}</h1>
                     <div class="recipeMetaData">
                         Antal personer: {{$recipe->number}}.
-                        @if($recipe->work_time)Tilberedning: {{$recipe->cooking_time}} min.@endif
+                        @if($recipe->cooking_time)
+                            <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg> Tilberedning: {{$recipe->cooking_time}} min.@endif
                         @if($recipe->work_time)Arbejdstid: {{$recipe->work_time}} min.@endif
                     </div>
 
