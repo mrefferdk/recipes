@@ -105,6 +105,8 @@
             for (let i = 0; i < json.ingredients.length; i++) {
                 addIngredientRow(json.ingredients[i]);
             }
+
+            initializeSelect2();
         }
 
         function removeRow(nodeId) {
@@ -147,7 +149,7 @@
             }
             nameNode.placeholder = 'Navn';
             nameNode.name = 'ingredients['+ingredientCounter+'][name]';
-            nameNode.className = 'rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 inline-block mr-2 w-64';
+            nameNode.className = 'ingredient-name-field rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 inline-block mr-2 w-64';
             node.appendChild(nameNode);
 
             // Delete button
@@ -182,8 +184,6 @@
             selector: '#body',
             height: '600',
         });
-
-
 
     </script>
 
