@@ -81,7 +81,7 @@
         let ingredientCounter = 0; // Yes it shouldn't be global.. fix later
 
         function getRecipeData() {
-            const link = 'http://localhost:8099/api/v1/recipes/' + document.getElementById('recipe_id').value;
+            const link = '/api/v1/recipes/' + document.getElementById('recipe_id').value;
             fetch(link, { headers: { "Content-Type": "application/json; charset=utf-8" }})
                 .then(res => res.json()) // parse response as JSON (can be res.text() for plain response)
                 .then(response => {
