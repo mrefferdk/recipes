@@ -34,5 +34,7 @@ Route::get('/ingredients/{id}/edit', [IngredientController::class, 'edit'])->mid
 Route::put('/ingredients/{id}', [IngredientController::class, 'update'])->middleware('auth')->name('ingredients.put');
 Route::delete('/ingredients/{id}', [IngredientController::class, 'delete'])->middleware('auth')->name('ingredients.delete');
 
+// TEMP
+Route::get('/v1/scrape', [\App\Http\Controllers\Api\ScrapeController::class, 'index']);
 
 require __DIR__.'/auth.php';
