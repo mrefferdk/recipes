@@ -2,9 +2,10 @@
 
 namespace App\Http\Services;
 
+use App\Models\Ingredient;
 use Illuminate\Support\Arr;
 
-class NemligDotCom
+class RecipeService
 {
     public $html;
 
@@ -21,7 +22,8 @@ class NemligDotCom
         $persons = $this->getNumberOfPersons();
         $instructions = $this->getInstructions();
         $ingredients = $this->getIngredients();
-        dd($ingredients, $title,$imageSrc, $description, $persons, $instructions, $ingredients, $this->getMetaData());
+
+
     }
 
     /**
@@ -67,7 +69,11 @@ class NemligDotCom
         return Arr::get($this->getMetaData(), 'Instructions');
     }
 
-    public function getIngredients()
+    /**
+     * @return array<Ingredient>
+     * @throws \Exception
+     */
+    public function getIngredients(): array
     {
         $ingredients = [];
         $groups = Arr::get($this->getMetaData(), 'IngredientGroups');
@@ -76,10 +82,17 @@ class NemligDotCom
                 $amount = Arr::get($ingredient, 'Amount');
                 $unit = Arr::get($ingredient, 'Unit');
                 $text = Arr::get($ingredient, 'Text');
-                // new Ingredient($text, $amount, $text);
-                dump($ingredient);
+                $ingredient = new Ingredient([
+                    'name' => $text,
+                    'amount' => $amount,
+                    'type' => $unit]);
+                $ingredients[] = $ingredient;
             }
         }
+        if (!$ingredients) {
+            throw new \Exception('Der er ingen ingredienser!?');
+        }
+        return $ingredients;
     }
 
 
