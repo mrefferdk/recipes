@@ -36,5 +36,6 @@ Route::delete('/ingredients/{id}', [IngredientController::class, 'delete'])->mid
 
 // TEMP
 Route::get('/v1/scrape', [\App\Http\Controllers\Api\ScrapeController::class, 'index']);
+Route::get('/scrape', [\App\Http\Controllers\ScrapeController::class, 'index']);
 
 require __DIR__.'/auth.php';
