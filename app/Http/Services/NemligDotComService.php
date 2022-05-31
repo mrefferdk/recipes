@@ -21,6 +21,8 @@ class NemligDotComService
         $persons = $this->getNumberOfPersons();
         $instructions = $this->getInstructions();
         $ingredients = $this->getIngredients();
+        $workTime = $this->getWorkTime();
+        $totalTime = $this->getTotalTime();
 
         return [
             'title' => $title,
@@ -29,6 +31,8 @@ class NemligDotComService
             'persons' => $persons,
             'instructions' => $instructions,
             'ingredients' => $ingredients,
+            'workTime' => $workTime,
+            'totalTime' => $totalTime,
         ];
     }
 
@@ -71,6 +75,16 @@ class NemligDotComService
     public function getInstructions()
     {
         return Arr::get($this->getMetaData(), 'Instructions');
+    }
+
+    public function getWorkTime()
+    {
+        return Arr::get($this->getMetaData(), 'WorkTime');
+    }
+
+    public function getTotalTime()
+    {
+        return Arr::get($this->getMetaData(), 'TotalTime');
     }
 
     /**
