@@ -10,6 +10,8 @@ class Recipe extends Model
 {
     use HasFactory;
 
+    const FILE_UPLOAD_PATH = 'uploads';
+
     protected $fillable = [
         'title',
         'image_path',

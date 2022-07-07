@@ -15,10 +15,11 @@
                         @method('POST')
                         <div class="mt-4">
                             <x-label for="url" :value="__('URL')" />
-                            <x-input id="url" class="block mt-1 w-1/2" type="text" name="url" :placeholder="__('Skriv fuld URL')" value="http://www.dr.dk" required />
+                            <x-input id="url" class="block mt-1 w-full" type="text" name="url" :placeholder="__('Skriv fuld URL')" value="https://www.nemlig.com/opskrifter/sproed-spidskaalssalat-noedder-aebler-98000352" required />
                         </div>
                         <div class="mt-4">
-                            <x-button class="" type="submit">Udfør</x-button>
+                            <x-button class="" type="submit" id="btn-do-scrape">Udfør</x-button>
+                            <span id="status-message" class=""></span>
                         </div>
                     </form>
                 </div>
@@ -34,14 +35,46 @@
             initiateCopy()
         });
 
-        console.log($('#scrapeForm'));
-
         function initiateCopy() {
             const link = '/api/v1/scrape/';
+            disableButton();
+            resetStatusMessage();
             $.post(link, {
                 'url': $('#url').val()
-            })
-
+            }).fail(function (response) {
+                console.log(response);
+                updateStatusMessage(response.responseJSON.error);
+            }).done(function(response) {
+                enableButton();
+                resetUrl();
+                console.log(response);
+                let recipeData = response.recipe;
+                let url = response.url;
+                let msg = '<a href="' + url + '" target="_blank">' + recipeData.title + '</a>';
+                updateStatusMessage(msg);
+            }).always(function () {
+               enableButton();
+            });
         }
+
+        function updateStatusMessage(text) {
+            $('#status-message').html(text);
+        }
+
+        function resetStatusMessage() {
+            $('#status-message').html(' ');
+        }
+
+        function resetUrl() {
+            $('#url').val('');
+        }
+        function enableButton() {
+            $('#btn-do-scrape').prop('disabled', false);
+        }
+        function disableButton() {
+            //$('#btn-do-scrape').prop('disabled', true);
+        }
+
+
     </script>
 </x-app-layout>

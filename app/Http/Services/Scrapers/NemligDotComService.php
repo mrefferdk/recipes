@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Http\Services\Scrapers;
 
 use Illuminate\Support\Arr;
 
@@ -39,7 +39,9 @@ class NemligDotComService
     public function getMetaData(): array
     {
         $pattern = '@"content":(.*)\r\n@';
-        preg_match($pattern, $this->html, $matches);
+        if (!preg_match($pattern, $this->html, $matches)) {
+            throw new \Exception('HTML is not as expected');
+        }
         $json = $matches[1];
         $trimmed = rtrim($json, ',');
         $array = json_decode($trimmed, true);
@@ -49,7 +51,11 @@ class NemligDotComService
     public function loadPageHtml($url)
     {
         // TODO use Guzzle to be able to Mock this
-        return file_get_contents($url);
+        $content = file_get_contents($url);
+        if (!$content) {
+            throw new \Exception('URL not found');
+        }
+        return $content;
     }
 
     public function getTitle()
@@ -94,7 +100,7 @@ class NemligDotComService
     public function getIngredients(): array
     {
         $ingredients = [];
-        $groups = Arr::get($this->getMetaData(), 'IngredientGroups');
+        $groups = Arr::get($this->getMetaData(), 'IngredientGroups', []);
         foreach ($groups as $group) {
             foreach (Arr::get($group, 'Ingredients') as $ingredient) {
                 $amount = Arr::get($ingredient, 'Amount');
@@ -109,7 +115,7 @@ class NemligDotComService
             }
         }
         if (!$ingredients) {
-            throw new \Exception('Der er ingen ingredienser!?');
+            throw new \Exception('No ingredients found');
         }
         return $ingredients;
     }

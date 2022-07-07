@@ -45,7 +45,7 @@ class RecipeController extends Controller
         if ($request->file()) {
             dd('ffff');
             $fileName = time().'_'.$request->file->getClientOriginalName();
-            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+            $filePath = $request->file('file')->storeAs(Recipe::FILE_UPLOAD_PATH, $fileName, 'public');
 
          //   $fileModel->file_path = '/storage/' . $filePath;
         }
