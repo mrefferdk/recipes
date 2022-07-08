@@ -15,11 +15,9 @@ class RecipeAdapter
         $persons = Arr::get($data, 'persons');
         $instructions = Arr::get($data, 'instructions');
 
-        $workTime = Arr::get($data, 'workTime');
-        $totalTime = Arr::get($data, 'totalTime');
-        $workTime = 666;
-        $cookingTime = 777;
-        // TODO lav algoritme til at tage det højeste tal fra "10-20 min" eller "50 min"
+        $workTime = self::extractTimeFromString(Arr::get($data, 'workTime'));
+        $totalTime = self::extractTimeFromString(Arr::get($data, 'totalTime'));
+        $cookingTime = $totalTime - $workTime;
 
         $recipe = new Recipe([
             'title' => $title,
@@ -32,5 +30,22 @@ class RecipeAdapter
         ]);
 
         return $recipe;
+    }
+
+    /**
+     * Extracts the first number in a string. fx in "10-30 min" it returns "10"
+     *
+     * @param ?string $string
+     * @return int|null
+     */
+    public static function extractTimeFromString(?string $string): ?int
+    {
+        $pattern = '/(\d+)/u';
+        preg_match_all($pattern, $string, $matches);
+        if ($lastMatchPair = reset($matches)) {
+            return reset($lastMatchPair);
+        }
+
+        return null;
     }
 }

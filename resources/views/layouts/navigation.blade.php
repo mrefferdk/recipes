@@ -9,9 +9,15 @@
                         <img class="bg-cover h-16" src="{{ asset('/images/logo.png') }}"/>
                     </a>
 
-                        <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8">
-                            {{ $header }}
-                        </div>
+                    <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                    <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8">
+                        <a href="{{ route('scrape') }}">Scraper</a>
+                    </div>
+                    <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8">
+                        <a href="{{ route('recipes.create') }}">Opret ny</a>
+                    </div>
                 </div>
             </div>
 

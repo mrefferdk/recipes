@@ -30,18 +30,22 @@ class ScrapeController extends Controller
         switch ($hostname) {
             // Test URL https://www.nemlig.com/opskrifter/sproed-spidskaalssalat-noedder-aebler-98000352
             case 'www.nemlig.com':
+                /** @var NemligDotComService $nemligDotComService */
                 $nemligDotComService = app(NemligDotComService::class, ['url' => $request->get('url')]);
                 $content = $nemligDotComService->scrapeAndGetContent();
-                $image = file_get_contents($content['imageSrc']);
+
 
                 $recipe = RecipeAdapter::adapt($content);
                 $recipe->save();
 
-                $filename = $recipe->id . '.jpg';
-                $filepath = '/public/' . Recipe::FILE_UPLOAD_PATH . '/' . $filename;
-                if (Storage::disk('local')->put($filepath, $image)) {
-                    $recipe->image_path = $filename;
-                    $recipe->save();
+
+                if ($content['imageSrc'] && $image = file_get_contents($content['imageSrc'])) {
+                    $filename = $recipe->id . '.jpg';
+                    $filepath = '/public/' . Recipe::FILE_UPLOAD_PATH . '/' . $filename;
+                    if (Storage::disk('local')->put($filepath, $image)) {
+                        $recipe->image_path = $filename;
+                        $recipe->save();
+                    }
                 }
 
                 $ingredients = [];
