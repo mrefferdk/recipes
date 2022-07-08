@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class RecipeController extends Controller
 {
@@ -15,9 +17,8 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //$recipes = Recipe::where('active', )->get();
         $recipes = DB::table('recipes')->orderBy('title')->get();
-        return view('recipes.list', ['recipes' => $recipes, 'isEditMode' => $this->adminService->isEditMode()]);
+        return view('recipes.list', ['recipes' => $recipes]);
     }
 
     /**
@@ -27,7 +28,13 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        return view('recipes.create');
+        $recipe = new Recipe();
+        $recipe->number = 4;
+        return view('recipes.edit', [
+            'action' => url('/recipes'),
+            'title' => 'Opret opskrift',
+            'recipe' => $recipe,
+        ]);
     }
 
     /**
@@ -38,7 +45,6 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'image' => 'mimes:png,jpg|max:2048'
         ]);
@@ -49,17 +55,34 @@ class RecipeController extends Controller
             $fileName = time().'_'.$request->file->getClientOriginalName();
             $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
 
-         //   $fileModel->file_path = '/storage/' . $filePath;
         }
 
-
         $recipe = new Recipe();
-        $recipe->title = $request->get('title');
+        $recipe->title = trim($request->get('title'));
         $recipe->body = $request->get('body');
         $recipe->number = $request->get('number');
-        $recipe->cooking_time = $request->get('cooking_time');
+        $recipe->cooking_time = trim($request->get('cooking_time'));
+        $recipe->work_time = trim($request->get('work_time'));
         $recipe->image_path = $fileName;
         $recipe->save();
+
+
+        $orderCounter = 0;
+        foreach ($request->ingredients as $ingredientData) {
+            if (!trim($ingredientData['name']) || !trim($ingredientData['amount']) || !trim($ingredientData['type'])) {
+                continue;
+            }
+
+            // Check if all 3 are filled out
+            $ingredient = Ingredient::create([
+                'name' => trim($ingredientData['name']),
+                'amount' => trim($ingredientData['amount']),
+                'type' => trim($ingredientData['type']),
+                'recipe_id' => $recipe->id,
+                'order' => $orderCounter++,
+            ]);
+        }
+
         return redirect('/recipes');
     }
 
@@ -73,11 +96,11 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($id);
 
-
+        $totalTime = (int) $recipe->work_time + (int) $recipe->cooking_time;
         return view('recipes.show', [
             'recipe' => $recipe,
             'showEditOptions' => $request->exists('showEditOptions'),
-            'isEditMode' => $this->adminService->isEditMode()
+            'totalTime' => $totalTime,
         ]);
     }
 
@@ -91,7 +114,13 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($id);
         $numberOfIngredientFields = count($recipe->ingredients) + 10;
-        return view('recipes.edit', ['recipe' => $recipe, 'numberOfIngredientFields' => $numberOfIngredientFields]);
+        return view('recipes.edit', [
+            'method' => 'PUT',
+            'action' => url('/recipes/' . $recipe->id),
+            'title' => 'Rediger opskrift',
+            'recipe' => $recipe,
+            'numberOfIngredientFields' => $numberOfIngredientFields
+        ]);
     }
 
     /**
@@ -115,12 +144,35 @@ class RecipeController extends Controller
             $request->file('image')->storeAs('uploads', $fileName, 'public');
         }
 
-        $recipe->title = $request->get('title');
+        $recipe->title = trim($request->get('title'));
         $recipe->body = $request->get('body');
         $recipe->number = $request->get('number');
-        $recipe->cooking_time = $request->get('cooking_time');
+        $recipe->cooking_time = trim($request->get('cooking_time'));
+        $recipe->work_time = trim($request->get('work_time'));
         $recipe->image_path = $fileName;
         $recipe->save();
+
+        // Find all existing ingredients
+        $existingIngredients = $recipe->ingredients;
+
+        // Insert new ingredients
+        $orderCounter = 0;
+        foreach ($request->ingredients as $ingredientData) {
+            if (!trim($ingredientData['name']) || !trim($ingredientData['amount']) || !trim($ingredientData['type'])) {
+                continue;
+            }
+            Ingredient::create([
+                'name' => trim($ingredientData['name']),
+                'amount' => trim($ingredientData['amount']),
+                'type' => trim($ingredientData['type']),
+                'recipe_id' => $recipe->id,
+                'order' => $orderCounter++,
+            ]);
+        }
+
+        // Delete old ingredients
+        Ingredient::whereIn('id', $existingIngredients->pluck('id'))->delete();
+
         return redirect('/recipes/' . $id);
     }
 

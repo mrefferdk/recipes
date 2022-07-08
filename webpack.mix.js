@@ -16,3 +16,7 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
     require('tailwindcss'),
     require('autoprefixer'),
 ]);
+
+mix.js('resources/js/tinymce.js', 'public/js');
+//mix.js('node_modules/jquery/dist/jquery.js', 'public/js'); // TODO why isn't it working?
+mix.js('node_modules/select2/dist/js/select2.js', 'public/js').postCss('node_modules/select2/dist/css/select2.css', 'public/css');

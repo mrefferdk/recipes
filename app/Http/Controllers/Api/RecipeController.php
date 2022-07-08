@@ -16,7 +16,6 @@ class RecipeController extends Controller
     {
         $recipes = Recipe::all();
         return json_encode($recipes);
-        //return view('recipes.list', ['recipes' => $recipes, 'isEditMode' => $this->adminService->isEditMode()]);
     }
 
     /**
@@ -46,7 +45,7 @@ class RecipeController extends Controller
         if ($request->file()) {
             dd('ffff');
             $fileName = time().'_'.$request->file->getClientOriginalName();
-            $filePath = $request->file('file')->storeAs('uploads', $fileName, 'public');
+            $filePath = $request->file('file')->storeAs(Recipe::FILE_UPLOAD_PATH, $fileName, 'public');
 
          //   $fileModel->file_path = '/storage/' . $filePath;
         }
@@ -68,16 +67,12 @@ class RecipeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
-        $recipe = Recipe::find($id);
+        $recipe = Recipe::with('ingredients')->find($id);
+        return response()->json($recipe);
 
 
-        return view('recipes.show', [
-            'recipe' => $recipe,
-            'showEditOptions' => $request->exists('showEditOptions'),
-            'isEditMode' => $this->adminService->isEditMode()
-        ]);
     }
 
     /**

@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ingredient;
+use App\Models\Recipe;
+use Database\Factories\RecipeFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -15,11 +18,9 @@ class RecipeSeeder extends Seeder
      */
     public function run()
     {
-        //
-        DB::table('recipes')->insert([
-            'title' => Str::random(10),
-            'body' => Str::random(100),
-            'number' => 4,
-        ]);
+        Recipe::factory()
+            ->has(Ingredient::factory()->count(10))
+            ->count(10)
+            ->create();
     }
 }

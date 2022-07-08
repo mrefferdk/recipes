@@ -1,4 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/tinymce.js": "/js/tinymce.js",
+    "/js/jquery.js": "/js/jquery.js",
+    "/js/select2.js": "/js/select2.js",
+    "/css/select2.css": "/css/select2.css",
     "/css/app.css": "/css/app.css"
 }

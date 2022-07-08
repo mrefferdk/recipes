@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\IngredientController;
-
+use App\Http\Controllers\ScrapeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +19,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/edit-toggle', [AdminController::class, 'toggleEditMode'])->name('edit-toggle');
-
 Route::get('/', [RecipeController::class, 'index'])->name('recipes');
 Route::get('/recipes', [RecipeController::class, 'index']);
 Route::post('/recipes', [RecipeController::class, 'store'])->middleware('auth')->name('recipes.store');
@@ -30,12 +26,9 @@ Route::get('/recipes/create', [RecipeController::class, 'create'])->middleware('
 Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 Route::get('/recipes/{id}/edit', [RecipeController::class, 'edit'])->middleware('auth')->name('recipes.edit');
 Route::put('/recipes/{id}', [RecipeController::class, 'update'])->middleware('auth')->name('recipes.update');
+Route::get('/scrape', [ScrapeController::class, 'index'])->middleware('auth')->name('scrape');
 
-Route::get('/ingredients/create', [IngredientController::class, 'create'])->middleware('auth')->name('ingredients.create');
-Route::post('/ingredients', [IngredientController::class, 'store'])->middleware('auth')->name('ingredients');
-Route::get('/ingredients/{id}/edit', [IngredientController::class, 'edit'])->middleware('auth')->name('ingredients.edit');
-Route::put('/ingredients/{id}', [IngredientController::class, 'update'])->middleware('auth')->name('ingredients.put');
-Route::delete('/ingredients/{id}', [IngredientController::class, 'delete'])->middleware('auth')->name('ingredients.delete');
-
+// TEMP
+Route::get('/v1/scrape', [ScrapeController::class, 'index']);
 
 require __DIR__.'/auth.php';

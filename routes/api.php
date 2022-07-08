@@ -19,3 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/v1/recipes', [\App\Http\Controllers\Api\RecipeController::class, 'index']);
+Route::get('/v1/recipes/{id}', [\App\Http\Controllers\Api\RecipeController::class, 'show']);
+Route::get('/v1/ingredient', [\App\Http\Controllers\Api\IngredientController::class, 'index']);
+Route::get('/effer', [\App\Http\Controllers\Api\IngredientController::class, 'index']);
+Route::get('/v1/scrape', [\App\Http\Controllers\Api\ScrapeController::class, 'index']); // TODO remove after debug
+Route::post('/v1/scrape', [\App\Http\Controllers\Api\ScrapeController::class, 'index'])->name('api.scrape');

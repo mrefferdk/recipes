@@ -12,7 +12,8 @@
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    # R=307 keeps POST data in the redirect. This is because of the way the .htaccess file is set up in the root for Simply.com
+    RewriteRule ^ %1 [L,R=307]
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
