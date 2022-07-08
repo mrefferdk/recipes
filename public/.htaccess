@@ -1,22 +1,21 @@
-<IfModule mod_rewrite.c>
-    <IfModule mod_negotiation.c>
-        Options -MultiViews -Indexes
-    </IfModule>
-
-    RewriteEngine On
-
-    # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    # R=307 keeps POST data in the redirect. This is because of the way the .htaccess file is set up in the root for Simply.com
-    RewriteRule ^ %1 [L,R=307]
-
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+# Simply.com way to specify PHP version
+AddType application/x-httpd-php80 .php
+FileETag MTime Size
+<IfModule mod_expires.c>
+  <FilesMatch "\.(jpg|gif|png|css|js)$">
+       ExpiresActive on
+       ExpiresDefault "access plus 1 year"
+   </FilesMatch>
 </IfModule>
+
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^opskrifter.effersoe.net$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.opskrifter.effersoe.net$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L,R=307]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php
+
