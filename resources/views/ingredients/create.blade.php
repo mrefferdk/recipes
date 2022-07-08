@@ -12,16 +12,12 @@
 
                     <h1>Create new ingredient</h1>
 
-                    <form method="POST" action="/ingredients">
+                    <form method="POST" action="{{url('/ingredients/')}}">
                         @csrf
 
                         <div class="mt-4">
                             <x-label for="ingredient-name" :value="__('Navn')" />
                             <x-input id="ingredient-name" class="block mt-1 w-1/2" type="text" name="name" required />
-                        </div>
-                        <div class="mt-4">
-                            <x-label for="ingredient-name" :value="__('Total tid (i minutter)')" />
-                            <x-input id="ingredient-name" class="block mt-1 w-1/2" type="text" name="minutes" required />
                         </div>
                         <div class="mt-4">
                             <x-label for="ingredient-amount" :value="__('Mængde')" />

@@ -6,26 +6,21 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-20">
-                    <div class="float-right">
-                    @if(!$showEditOptions)
-
-                        <a href="{{ url('/recipes/' . $recipe->id . '/?showEditOptions') }}">
-                            <x-button>Vis redigeringsmuligheder</x-button>
-                        </a>
-                    @else
-                        <a href="{{ url('/recipes/' . $recipe->id) }}">
-                            <x-button>Gem redigeringsmuligheder</x-button>
-                        </a>
+                <div class="p-6 bg-theme-orange text-theme-brown border-b border-gray-20">
+                    @if($recipe->image_path)
+                    <div class="main-image w-full bg-cover h-40" style="background-image: url({{ asset('/storage/uploads/'.$recipe->image_path) }});"></div>
                     @endif
-                        </div>
-                    <h1>{{$recipe->title}}</h1>
+                    <h1 class="mt-10 text-black">{{$recipe->title}}</h1>
+                    <div class="recipeMetaData">
+                        Antal personer: {{$recipe->number}}.
+                        @if($recipe->work_time)Tilberedning: {{$recipe->cooking_time}} min.@endif
+                        @if($recipe->work_time)Arbejdstid: {{$recipe->work_time}} min.@endif
+                    </div>
 
-
-                    @if($showEditOptions)
-                        <a href="{{ url('/recipes/' . $recipe->id . '/edit') }}">
+                    @if($isEditMode)
+                        <a class="no-underline" href="{{ route('recipes.edit', $recipe->id) }}">
                             <x-button>Rediger opskrift</x-button>
                         </a>
                     @endif
@@ -33,26 +28,26 @@
 
                     <div class="grid">
                         <div class="col-start-1 col-end-3">
-                            <h3 class="mt-10">Ingredienser</h3>
+                            <h3 class="mt-10 font-bold">Ingredienser</h3>
 
-                            @if($showEditOptions)
-                            <a href="{{ url('/ingredients/create?recipeId=' . $recipe->id) }}" class="text-sm text-gray-700 underline">
+                            @if($isEditMode)
+                            <a class="no-underline" href="{{ route('ingredients.create', 'recipeId=' . $recipe->id) }}">
                                 <x-button>Tilføj ingrediens</x-button>
                             </a>
                             @endif
                             <table>
                                 @foreach ($recipe->ingredients as $ingredient)
                                     <tr>
-                                        <td class="pr-10 py-1 font-bold">{{$ingredient->amount}} {{$ingredient->type}}</td>
+                                        <td class="pr-2 md:pr-7 py-1 font-bold">{{$ingredient->amount}} {{$ingredient->type}}</td>
                                         <td>{{$ingredient->name}}</td>
-                                        @if($showEditOptions)
+                                        @if($isEditMode)
                                             <td>
-                                                <form action="/ingredients/{{$ingredient->id}}/edit" method="GET">
+                                                <form action="{{route('ingredients.edit', $ingredient->id)}}" method="GET">
                                                     <x-button type="submit">Rediger</x-button>
                                                 </form>
                                             </td>
                                             <td>
-                                                <form action="/ingredients/{{$ingredient->id}}" method="POST">
+                                                <form action="{{ route('ingredients.delete', $ingredient->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="id" value="{{$ingredient->id}}"/>
@@ -65,17 +60,12 @@
                             </table>
                         </div>
                         <div class="col-start-3 col-end-12 px-2">
-                            <h2 class="mt-10">Sådan gør du</h2>
+                            <h2 class="mt-10 font-bold">Sådan gør du</h2>
                             <p>
-                                {{$recipe->body}}
+                                {!! nl2br(e($recipe->body)) !!}
                             </p>
                         </div>
                     </div>
-
-
-
-
-
 
                 </div>
             </div>

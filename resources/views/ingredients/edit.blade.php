@@ -10,16 +10,12 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <h1>Edit ingredient: {{$ingredient->name}}</h1>
-                    <form method="POST" action="/ingredients/{{$ingredient->id}}">
+                    <form method="POST" action="{{url('/ingredients/' . $ingredient->id)}}">
                         @csrf
                         @method('PUT')
                         <div class="mt-4">
                             <x-label for="ingredient-name" :value="__('Navn')" />
                             <x-input id="ingredient-name" class="block mt-1 w-1/2" type="text" name="name" value="{{$ingredient->name}}" required />
-                        </div>
-                        <div class="mt-4">
-                            <x-label for="ingredient-name" :value="__('Total tid (i minutter)')" />
-                            <x-input id="ingredient-name" class="block mt-1 w-1/7" type="text" name="minutes" value="" required />
                         </div>
                         <div class="mt-4">
                             <x-label for="ingredient-amount" :value="__('Mængde')" />

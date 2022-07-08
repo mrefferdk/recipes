@@ -1,3 +1,13 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+h1 {
+    font-family: myFirstFont;
+}
+
+
+@font-face {
+    font-family: myFirstFont;
+    src: url("/css/fonts/ZenOldMincho-Bold.ttf");
+}

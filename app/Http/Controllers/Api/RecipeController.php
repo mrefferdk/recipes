@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\Recipe;
-use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
@@ -15,8 +14,9 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $recipes = DB::table('recipes')->orderBy('title')->get();
-        return view('recipes.list', ['recipes' => $recipes, 'isEditMode' => $this->adminService->isEditMode()]);
+        $recipes = Recipe::all();
+        return json_encode($recipes);
+        //return view('recipes.list', ['recipes' => $recipes, 'isEditMode' => $this->adminService->isEditMode()]);
     }
 
     /**
@@ -57,7 +57,6 @@ class RecipeController extends Controller
         $recipe->body = $request->get('body');
         $recipe->number = $request->get('number');
         $recipe->cooking_time = $request->get('cooking_time');
-        $recipe->work_time = $request->get('work_time');
         $recipe->image_path = $fileName;
         $recipe->save();
         return redirect('/recipes');
@@ -73,12 +72,11 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::find($id);
 
-        $totalTime = (int) $recipe->work_time + (int) $recipe->cooking_time;
+
         return view('recipes.show', [
             'recipe' => $recipe,
             'showEditOptions' => $request->exists('showEditOptions'),
-            'isEditMode' => $this->adminService->isEditMode(),
-            'totalTime' => $totalTime,
+            'isEditMode' => $this->adminService->isEditMode()
         ]);
     }
 
