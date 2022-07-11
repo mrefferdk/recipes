@@ -15,7 +15,7 @@
                         @method('POST')
                         <div class="mt-4">
                             <x-label for="url" :value="__('URL')" />
-                            <x-input id="url" class="block mt-1 w-full" type="text" name="url" :placeholder="__('Skriv fuld URL')" value="https://www.nemlig.com/opskrifter/sproed-spidskaalssalat-noedder-aebler-98000352" required />
+                            <x-input id="url" class="block mt-1 w-full" type="text" name="url" :placeholder="__('Skriv fuld URL')" value="https://www.valdemarsro.dk/verdens-nemmeste-og-bedste-hjemmebagte-boller/" required />
                         </div>
                         <div class="mt-4">
                             <x-button class="" type="submit" id="btn-do-scrape">Udfør</x-button>
