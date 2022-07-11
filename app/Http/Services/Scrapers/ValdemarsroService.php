@@ -128,14 +128,10 @@ class ValdemarsroService
             $patternAmountUnitText = '@([^\s]+)\s([^\s]+)\s(.*)@';
             preg_match($patternAmountUnitText, $ingredientString, $ingredientMatches);
             if ($ingredientMatches) {
-                $amount = $ingredientMatches[1];
-                $unit = $ingredientMatches[2];
-                $text = $ingredientMatches[3];
-
                 $ingredients[] = [
-                    'amount' => $amount,
-                    'unit' => $unit,
-                    'text' => $text,
+                    'amount' => $ingredientMatches[1],
+                    'unit' => $ingredientMatches[2],
+                    'text' => $ingredientMatches[3],
                 ];
                 continue;
             }
@@ -143,13 +139,20 @@ class ValdemarsroService
             $patternAmountText = '@([^\s]+)\s(.*)@';
             preg_match($patternAmountText, $ingredientString, $ingredientMatches);
             if ($ingredientMatches) {
-                $amount = $ingredientMatches[1];
-                $text = $ingredientMatches[2];
-
                 $ingredients[] = [
-                    'amount' => $amount,
+                    'amount' => $ingredientMatches[1],
                     'unit' => null,
-                    'text' => $text,
+                    'text' => $ingredientMatches[2],
+                ];
+                continue;
+            }
+            $patternAmountText = '@([^\s]+)@';
+            preg_match($patternAmountText, $ingredientString, $ingredientMatches);
+            if ($ingredientMatches) {
+                $ingredients[] = [
+                    'amount' => null,
+                    'unit' => null,
+                    'text' => $ingredientMatches[1],
                 ];
                 continue;
             }
