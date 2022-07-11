@@ -124,18 +124,37 @@ class ValdemarsroService
         $pattern = '@<li itemprop="recipeIngredient">([^<]*)@';
         preg_match_all($pattern, $this->getMetaData(), $matches);
 
-        $pattern = '@([^\s]+)\s([^\s]+)\s(.*)@';
         foreach ($matches[1] as $ingredientString) {
-            preg_match($pattern, $ingredientString, $ingredientMatches);
-            $amount = $ingredientMatches[1];
-            $unit = $ingredientMatches[2];
-            $text = $ingredientMatches[3];
+            $patternAmountUnitText = '@([^\s]+)\s([^\s]+)\s(.*)@';
+            preg_match($patternAmountUnitText, $ingredientString, $ingredientMatches);
+            if ($ingredientMatches) {
+                $amount = $ingredientMatches[1];
+                $unit = $ingredientMatches[2];
+                $text = $ingredientMatches[3];
 
-            $ingredients[] = [
-                'amount' => $amount,
-                'unit' => $unit,
-                'text' => $text,
-            ];
+                $ingredients[] = [
+                    'amount' => $amount,
+                    'unit' => $unit,
+                    'text' => $text,
+                ];
+                continue;
+            }
+
+            $patternAmountText = '@([^\s]+)\s(.*)@';
+            preg_match($patternAmountText, $ingredientString, $ingredientMatches);
+            if ($ingredientMatches) {
+                $amount = $ingredientMatches[1];
+                $text = $ingredientMatches[2];
+
+                $ingredients[] = [
+                    'amount' => $amount,
+                    'unit' => null,
+                    'text' => $text,
+                ];
+                continue;
+            }
+
+            throw new \Exception('Problem translation ingredient string: ' .$ingredientString);
         }
 
         if (!$ingredients) {
