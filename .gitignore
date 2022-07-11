@@ -1,3 +1,7 @@
+.idea/
+.idea/*
+.idea/php.xml
+.idea/recipes.iml
 /node_modules
 /public/hot
 /public/storage
@@ -11,6 +15,3 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-.idea/
-.idea/*
-.idea/php.xml
