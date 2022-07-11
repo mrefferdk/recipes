@@ -15,6 +15,7 @@ class ChangeIngredientsAllowTypeNull extends Migration
     {
         Schema::table('ingredients', function (Blueprint $table) {
             $table->string('type')->nullable()->change();
+            $table->string('amount')->nullable()->change();
         });
     }
 
@@ -25,8 +26,5 @@ class ChangeIngredientsAllowTypeNull extends Migration
      */
     public function down()
     {
-        Schema::table('ingredients', function (Blueprint $table) {
-            $table->string('type')->change();
-        });
     }
 }
