@@ -2,13 +2,13 @@
 
 namespace App\Http\Services\Scrapers;
 
-use Illuminate\Support\Arr;
+use App\Exceptions\MissingRecipeNumberOfPersons;
 
 class ValdemarsroService
 {
-    public $html;
+    public string $html;
 
-    public function __construct(private string $url)
+    public function __construct(string $url)
     {
         $this->html = $this->loadPageHtml($url);
     }
@@ -21,13 +21,15 @@ class ValdemarsroService
         $totalTime = $this->getTotalTime();
         $workTime = $this->getWorkTime();
         $ingredients = $this->getIngredients();
-        $description = $this->getDescription();
-        $persons = 4; // $this->getNumberOfPersons();
+        try {
+            $persons = $this->getNumberOfPersons();
+        } catch (MissingRecipeNumberOfPersons $e) {
+            $persons = 4;
+        }
 
         return [
             'title' => $title,
             'imageSrc' => $imageSrc,
-            'description' => $description,
             'persons' => $persons,
             'instructions' => $instructions,
             'ingredients' => $ingredients,
@@ -50,7 +52,7 @@ class ValdemarsroService
 
     }
 
-    public function loadPageHtml($url)
+    public function loadPageHtml(string $url): string
     {
         // TODO use Guzzle to be able to Mock this
         $content = file_get_contents($url);
@@ -67,26 +69,26 @@ class ValdemarsroService
         return $matches[1];
     }
 
-    public function getImageSrc()
+    public function getImageSrc(): string
     {
         $pattern = '@<meta property="og:image" content="([^"]*)@';
         preg_match($pattern, $this->html, $matches);
         return $matches[1];
     }
 
-    public function getDescription()
+    public function getNumberOfPersons(): int
     {
-        return Arr::get($this->getMetaData(), 'MetaTitle');
+        $pattern = '@\'pers.\', (\d)@';
+        preg_match($pattern, $this->getMetaData(), $matches);
+        if (!isset($matches[1])) {
+            throw new MissingRecipeNumberOfPersons;
+        }
+
+        return $matches[1];
     }
 
-    public function getNumberOfPersons()
+    public function getInstructions(): string
     {
-        return Arr::get($this->getMetaData(), 'NumberOfPersons');
-    }
-
-    public function getInstructions()
-    {
-        //
         $pattern = '@<div itemprop="recipeInstructions" class="content">(.*)$@';
         preg_match($pattern, $this->getMetaData(), $matches);
 
@@ -100,18 +102,18 @@ class ValdemarsroService
         return $descriptionString;
     }
 
-    public function getWorkTime()
+    public function getWorkTime(): int
     {
         $pattern = '@Arbejdstid</span><strong>([^<]*)@';
         preg_match($pattern, $this->getMetaData(), $matches);
-        return $matches[1];
+        return (int) $matches[1];
     }
 
-    public function getTotalTime()
+    public function getTotalTime(): int
     {
         $pattern = '@Tid i alt</span><strong>([^<]*)@';
         preg_match($pattern, $this->getMetaData(), $matches);
-        return $matches[1];
+        return (int) $matches[1];
     }
 
     /**

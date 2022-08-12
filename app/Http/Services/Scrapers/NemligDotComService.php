@@ -6,9 +6,9 @@ use Illuminate\Support\Arr;
 
 class NemligDotComService
 {
-    public $html;
+    public string $html;
 
-    public function __construct(private string $url)
+    public function __construct(string $url)
     {
         $this->html = $this->loadPageHtml($url);
     }
@@ -48,7 +48,7 @@ class NemligDotComService
         return $array[0];
     }
 
-    public function loadPageHtml($url)
+    public function loadPageHtml($url): string
     {
         // TODO use Guzzle to be able to Mock this
         $content = file_get_contents($url);
@@ -58,39 +58,39 @@ class NemligDotComService
         return $content;
     }
 
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return Arr::get($this->getMetaData(), 'Header');
     }
 
-    public function getImageSrc()
+    public function getImageSrc(): ?string
     {
         return Arr::get($this->getMetaData(), 'Media.0.Url');
     }
 
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return Arr::get($this->getMetaData(), 'MetaTitle');
     }
 
-    public function getNumberOfPersons()
+    public function getNumberOfPersons(): ?int
     {
-        return Arr::get($this->getMetaData(), 'NumberOfPersons');
+        return (int) Arr::get($this->getMetaData(), 'NumberOfPersons');
     }
 
-    public function getInstructions()
+    public function getInstructions(): ?string
     {
         return Arr::get($this->getMetaData(), 'Instructions');
     }
 
-    public function getWorkTime()
+    public function getWorkTime(): int
     {
-        return Arr::get($this->getMetaData(), 'WorkTime');
+        return (int) Arr::get($this->getMetaData(), 'WorkTime');
     }
 
-    public function getTotalTime()
+    public function getTotalTime(): int
     {
-        return Arr::get($this->getMetaData(), 'TotalTime');
+        return (int) Arr::get($this->getMetaData(), 'TotalTime');
     }
 
     /**
@@ -119,7 +119,4 @@ class NemligDotComService
         }
         return $ingredients;
     }
-
-
-
 }

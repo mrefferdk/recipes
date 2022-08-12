@@ -44,7 +44,7 @@ class RecipeAdapter
         preg_match($pattern, $string, $matches);
 
         if ($matches) {
-            return $matches[1] * 60; // Convert to minutes TODO USE CARBON
+            return $matches[1] * 60;
         }
 
         $pattern = '/(\d+) min/';
