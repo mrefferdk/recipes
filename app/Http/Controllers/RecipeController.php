@@ -41,9 +41,9 @@ class RecipeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'image' => 'mimes:png,jpg|max:2048'
@@ -60,8 +60,8 @@ class RecipeController extends Controller
         $recipe->title = trim($request->get('title'));
         $recipe->body = $request->get('body');
         $recipe->number = $request->get('number');
-        $recipe->cooking_time = trim($request->get('cooking_time'));
-        $recipe->work_time = trim($request->get('work_time'));
+        $recipe->cooking_time = (int) trim($request->get('cooking_time'));
+        $recipe->work_time = (int) trim($request->get('work_time'));
         $recipe->image_path = $fileName;
         $recipe->save();
 
@@ -89,9 +89,8 @@ class RecipeController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\View\View
      */
-    public function show(Request $request, $id)
+    public function show(Request $request, $id): \Illuminate\View\View
     {
         $recipe = Recipe::find($id);
 
@@ -107,10 +106,10 @@ class RecipeController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($id): \Illuminate\View\View
     {
+        /** @var Recipe $recipe */
         $recipe = Recipe::find($id);
         $numberOfIngredientFields = count($recipe->ingredients) + 10;
         return view('recipes.edit', [
@@ -151,7 +150,7 @@ class RecipeController extends Controller
         $recipe->save();
 
         // Find all existing ingredients
-        $existingIngredients = $recipe->ingredients;
+        $existingIngredients = $recipe->ingredients();
 
         // Insert new ingredients
         $orderCounter = 0;
@@ -174,14 +173,4 @@ class RecipeController extends Controller
         return redirect('/recipes/' . $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

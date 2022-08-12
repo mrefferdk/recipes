@@ -12,6 +12,8 @@ class Recipe extends Model
 
     const FILE_UPLOAD_PATH = 'uploads';
 
+    protected ?array $ingredients;
+
     protected $fillable = [
         'title',
         'image_path',
@@ -23,7 +25,10 @@ class Recipe extends Model
         'ingredients',
         ];
 
-    public function ingredients()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function ingredients(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Ingredient::class, 'recipe_id');
     }
