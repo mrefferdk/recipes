@@ -73,7 +73,7 @@ class Nemligcom implements ScraperInterface
         return Arr::get($this->getMetaData(), 'MetaTitle');
     }
 
-    private function getNumberOfPersons(): ?int
+    private function getNumberOfPersons(): int
     {
         return (int) Arr::get($this->getMetaData(), 'NumberOfPersons');
     }
