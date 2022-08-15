@@ -13,12 +13,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
+// TODO make this code generic so it matches all scrapers instead of the switch/case
 class ScrapeController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request, ScrapeService $scrapeService)
     {
@@ -91,7 +92,6 @@ class ScrapeController extends Controller
                 ]);
                 $scrapedRecipe->save();
                 return response()->json(['recipe' => $recipe->toArray(), 'url' => '/recipes/' . $recipe->id]);
-                break;
             default:
                 return response()->json(['error' => 'No scraper found for provided domain'], 501);
         }
