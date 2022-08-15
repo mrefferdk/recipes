@@ -4,7 +4,7 @@ namespace App\Http\Services\Scrapers;
 
 use Illuminate\Support\Arr;
 
-class NemligDotComService
+class Nemligcom implements ScraperInterface
 {
     public string $html;
 
@@ -36,7 +36,7 @@ class NemligDotComService
         ];
     }
 
-    public function getMetaData(): array
+    private function getMetaData(): array
     {
         $pattern = '@"content":(.*)\r\n@';
         if (!preg_match($pattern, $this->html, $matches)) {
@@ -48,7 +48,7 @@ class NemligDotComService
         return $array[0];
     }
 
-    public function loadPageHtml($url): string
+    private function loadPageHtml($url): string
     {
         // TODO use Guzzle to be able to Mock this
         $content = file_get_contents($url);
@@ -58,37 +58,37 @@ class NemligDotComService
         return $content;
     }
 
-    public function getTitle(): ?string
+    private function getTitle(): ?string
     {
         return Arr::get($this->getMetaData(), 'Header');
     }
 
-    public function getImageSrc(): ?string
+    private function getImageSrc(): ?string
     {
         return Arr::get($this->getMetaData(), 'Media.0.Url');
     }
 
-    public function getDescription(): ?string
+    private function getDescription(): ?string
     {
         return Arr::get($this->getMetaData(), 'MetaTitle');
     }
 
-    public function getNumberOfPersons(): ?int
+    private function getNumberOfPersons(): ?int
     {
         return (int) Arr::get($this->getMetaData(), 'NumberOfPersons');
     }
 
-    public function getInstructions(): ?string
+    private function getInstructions(): ?string
     {
         return Arr::get($this->getMetaData(), 'Instructions');
     }
 
-    public function getWorkTime(): int
+    private function getWorkTime(): int
     {
         return (int) Arr::get($this->getMetaData(), 'WorkTime');
     }
 
-    public function getTotalTime(): int
+    private function getTotalTime(): int
     {
         return (int) Arr::get($this->getMetaData(), 'TotalTime');
     }
@@ -97,7 +97,7 @@ class NemligDotComService
      * @return array
      * @throws \Exception
      */
-    public function getIngredients(): array
+    private function getIngredients(): array
     {
         $ingredients = [];
         $groups = Arr::get($this->getMetaData(), 'IngredientGroups', []);

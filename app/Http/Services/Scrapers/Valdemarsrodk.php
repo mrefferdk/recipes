@@ -4,7 +4,7 @@ namespace App\Http\Services\Scrapers;
 
 use App\Exceptions\MissingRecipeNumberOfPersons;
 
-class ValdemarsroService
+class Valdemarsrodk implements ScraperInterface
 {
     public string $html;
 
@@ -38,7 +38,7 @@ class ValdemarsroService
         ];
     }
 
-    public function getMetaData(): string
+    private function getMetaData(): string
     {
         $html = preg_replace('@</p>(\s*)\n@', '</p>', $this->html);
         $html = preg_replace('@<br />(\s*)\n@', '</br />', $html);
@@ -52,7 +52,7 @@ class ValdemarsroService
 
     }
 
-    public function loadPageHtml(string $url): string
+    private function loadPageHtml(string $url): string
     {
         // TODO use Guzzle to be able to Mock this
         $content = file_get_contents($url);
@@ -62,21 +62,21 @@ class ValdemarsroService
         return $content;
     }
 
-    public function getTitle(): string
+    private function getTitle(): string
     {
         $pattern = '@h2 itemprop="name">([^<]*)@';
         preg_match($pattern, $this->getMetaData(), $matches);
         return $matches[1];
     }
 
-    public function getImageSrc(): string
+    private function getImageSrc(): string
     {
         $pattern = '@<meta property="og:image" content="([^"]*)@';
         preg_match($pattern, $this->html, $matches);
         return $matches[1];
     }
 
-    public function getNumberOfPersons(): int
+    private function getNumberOfPersons(): int
     {
         $pattern = '@\'pers.\', (\d)@';
         preg_match($pattern, $this->getMetaData(), $matches);
@@ -87,7 +87,7 @@ class ValdemarsroService
         return $matches[1];
     }
 
-    public function getInstructions(): string
+    private function getInstructions(): string
     {
         $pattern = '@<div itemprop="recipeInstructions" class="content">(.*)$@';
         preg_match($pattern, $this->getMetaData(), $matches);
@@ -102,14 +102,14 @@ class ValdemarsroService
         return $descriptionString;
     }
 
-    public function getWorkTime(): int
+    private function getWorkTime(): int
     {
         $pattern = '@Arbejdstid</span><strong>([^<]*)@';
         preg_match($pattern, $this->getMetaData(), $matches);
         return (int) $matches[1];
     }
 
-    public function getTotalTime(): int
+    private function getTotalTime(): int
     {
         $pattern = '@Tid i alt</span><strong>([^<]*)@';
         preg_match($pattern, $this->getMetaData(), $matches);
@@ -120,7 +120,7 @@ class ValdemarsroService
      * @return array
      * @throws \Exception
      */
-    public function getIngredients(): array
+    private function getIngredients(): array
     {
         $ingredients = [];
         $pattern = '@<li itemprop="recipeIngredient">([^<]*)@';
