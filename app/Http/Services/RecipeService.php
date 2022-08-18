@@ -11,21 +11,8 @@ class RecipeService
 
     public function createRecipeWithIngredients(Request $request): Recipe
     {
-        // TODO move validation
-        $request->validate([
-            'image' => 'mimes:png,jpg|max:2048'
-        ]);
-
         $recipe = new Recipe();
         $this->save($request, $recipe);
-
-        if ($file = $request->file('image')) {
-            $this->uploadAndAttachFilename($recipe, $file);
-        }
-
-        /** @var IngredientService $ingredientService */
-        $ingredientService = app(IngredientService::class);
-        $ingredientService->saveIngredients($request->ingredients, $recipe->id);
 
         return $recipe;
     }
@@ -41,10 +28,6 @@ class RecipeService
         // Find all existing ingredients
         $existingIngredients = $recipe->ingredients()->get();
         $existingIngredientIds = $existingIngredients->pluck('id')->toArray();
-
-        $request->validate([
-            'image' => 'mimes:png,jpg|max:2048'
-        ]);
 
         $this->save($request, $recipe);
 

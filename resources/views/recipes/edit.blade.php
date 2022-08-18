@@ -18,6 +18,16 @@
                         <input type="hidden" id="recipe_id" value="{{$recipe->id}}"/>
 
 
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <div class="mt-4 grid grid-cols-8 gap-4">
                             <div class=" col-span-5">
                                 <x-label for="title" :value="__('Overskrift')" />
