@@ -2,11 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RecipeCreateTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic test example.
      *
@@ -14,15 +17,22 @@ class RecipeCreateTest extends TestCase
      */
     public function testCreate()
     {
-        $response = $this->post('/recipes', [
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->post('/recipes', [
             'title' => 'recipe test',
+            'body' => 'body',
+            'number' => 1,
+            'ingredients' => [],
         ]);
 
-/*
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)*/
-
         $response->assertStatus(302);
+
+        $this->assertDatabaseHas('recipes', [
+            'title' => 'recipe test',
+            'body' => 'body',
+            'number' => 1,
+            'active' => 0,
+        ]);
+
     }
 }
