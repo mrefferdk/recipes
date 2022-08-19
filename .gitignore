@@ -15,3 +15,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+codecovupload.sh
+clover.xml
+codecov
+.phpunit.result.cache
+reports
