@@ -66,7 +66,7 @@ class RecipeService
         $recipe->cooking_time = (int) trim($request->get('cooking_time'));
         $recipe->work_time = (int) trim($request->get('work_time'));
         $recipe->image_path = '$fileName';
-        $recipe->active = (bool) $request->get('active') ?? false;
+        $recipe->active = $request->get('active') ?? false;
         $recipe->save();
     }
 }
