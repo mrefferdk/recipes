@@ -35,7 +35,6 @@ jobs:
         run: php -dpcov.enabled=1 vendor/bin/phpunit --testdox -d memory_limit=512M --coverage-clover clover.xml
       - name: Execute analysis (PHPStan) via Larastan
         run: vendor/bin/phpstan analyse
-
       - name: Upload coverage to Codecov.io
         shell: bash
         run: bash <(curl -s https://codecov.io/bash) -t ${CODECOV_TOKEN} -f ${GITHUB_WORKSPACE}/clover.xml -C ${GITHUB_SHA}
