@@ -33,7 +33,6 @@ jobs:
          DB_CONNECTION: sqlite
          DB_DATABASE: database/database.sqlite
         run: php -dpcov.enabled=1 vendor/bin/phpunit --testdox -d memory_limit=512M --coverage-clover clover.xml
-
       - name: Execute analysis (PHPStan) via Larastan
         run: vendor/bin/phpstan analyse
 
