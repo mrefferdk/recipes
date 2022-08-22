@@ -1,7 +1,7 @@
 Name: Starter Workflow Demo
 on:
   push:
-    branches: [ $default-branch ]
+    branches: [ "workflow", $default-branch ]
   pull_request:
     branches: [ $default-branch ]
 jobs:
