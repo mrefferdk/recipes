@@ -34,11 +34,11 @@ jobs:
          DB_DATABASE: database/database.sqlite
        run: php -dpcov.enabled=1 vendor/bin/phpunit --testdox -d memory_limit=512M --coverage-clover clover.xml
 
-         - name: Execute analysis (PHPStan) via Larastan
-           run: vendor/bin/phpstan analyse
+     - name: Execute analysis (PHPStan) via Larastan
+       run: vendor/bin/phpstan analyse
 
-         - name: Upload coverage to Codecov.io
-           shell: bash
-           run: bash <(curl -s https://codecov.io/bash) -t ${CODECOV_TOKEN} -f ${GITHUB_WORKSPACE}/clover.xml -C ${GITHUB_SHA}
-           env:
-             CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+     - name: Upload coverage to Codecov.io
+       shell: bash
+       run: bash <(curl -s https://codecov.io/bash) -t ${CODECOV_TOKEN} -f ${GITHUB_WORKSPACE}/clover.xml -C ${GITHUB_SHA}
+       env:
+         CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
