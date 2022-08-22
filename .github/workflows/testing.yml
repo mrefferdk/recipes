@@ -27,18 +27,18 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-     - name: Execute tests (Unit and Feature tests) via PHPUnit
-       env:
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        env:
          XDEBUG_MODE: coverage
          DB_CONNECTION: sqlite
          DB_DATABASE: database/database.sqlite
-       run: php -dpcov.enabled=1 vendor/bin/phpunit --testdox -d memory_limit=512M --coverage-clover clover.xml
+        run: php -dpcov.enabled=1 vendor/bin/phpunit --testdox -d memory_limit=512M --coverage-clover clover.xml
 
-     - name: Execute analysis (PHPStan) via Larastan
-       run: vendor/bin/phpstan analyse
+      - name: Execute analysis (PHPStan) via Larastan
+        run: vendor/bin/phpstan analyse
 
-     - name: Upload coverage to Codecov.io
-       shell: bash
-       run: bash <(curl -s https://codecov.io/bash) -t ${CODECOV_TOKEN} -f ${GITHUB_WORKSPACE}/clover.xml -C ${GITHUB_SHA}
-       env:
+      - name: Upload coverage to Codecov.io
+        shell: bash
+        run: bash <(curl -s https://codecov.io/bash) -t ${CODECOV_TOKEN} -f ${GITHUB_WORKSPACE}/clover.xml -C ${GITHUB_SHA}
+        env:
          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
