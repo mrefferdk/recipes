@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/mrefferdk/recipes/branch/main/graphs/badge.svg?token=IZUPCKXS1X)](https://github.com/mrefferdk/recipes)
+
 # Installation
 
 - Clone this repo
@@ -13,3 +15,11 @@ composer install --ignore-platform-reqs
 ```
 - run ``sail up -d``
 - run ``sail artisan key:generate``
+- run ``sail artisan migrate``
+
+## Useful commands
+`sail artisan db:seed` populates your development database with content
+
+`sail test` runs al automatic tests and generates coverage report
+
+`vendor/phpstan/phpstan/phpstan` runs PHP Stan static analysis
