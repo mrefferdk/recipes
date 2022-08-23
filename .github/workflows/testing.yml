@@ -18,15 +18,15 @@ jobs:
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: ls -a via OPEN SSH Private Key
-          uses: garygrossgarten/github-action-ssh@release
-          with:
-            command: ls -a
-            host: linux123.unoeuro.com
-            username: effersoe.net
-            password: ${{ secrets.HOST_PASSWORD }}
-            privateKey: ${{ secrets.PRIVATE_KEY}}
-          env:
-            CI: true
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ls -a
+          host: linux123.unoeuro.com
+          username: effersoe.net
+          password: ${{ secrets.HOST_PASSWORD }}
+          privateKey: ${{ secrets.PRIVATE_KEY}}
+        env:
+          CI: true
       - name: Install Dependencies
         run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Generate key
