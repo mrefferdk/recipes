@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Adapters\NemligDotCom;
+namespace App\Http\Adapters;
 
 use App\Models\Ingredient;
 use Illuminate\Support\Arr;
@@ -13,14 +13,11 @@ class IngredientAdapter
         $unit = Arr::get($data, 'unit');
         $text = Arr::get($data, 'text');
 
-
-        $ingredient = new Ingredient([
+        return new Ingredient([
             'name' => $text,
             'amount' => $amount,
             'type' => $unit,
             'order' => $order,
         ]);
-
-        return $ingredient;
     }
 }

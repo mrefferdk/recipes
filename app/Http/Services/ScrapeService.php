@@ -2,8 +2,7 @@
 
 namespace App\Http\Services;
 
-use App\Http\Adapters\NemligDotCom\IngredientAdapter;
-use App\Http\Adapters\NemligDotCom\RecipeAdapter;
+use App\Http\Adapters\IngredientAdapter;
 use App\Http\Services\Scrapers\ScraperInterface;
 use App\Models\Recipe;
 use App\Models\ScrapedRecipe;
@@ -23,7 +22,10 @@ class ScrapeService
     {
         $scraper = $this->getScraper($url);
         $content = $scraper->scrapeAndGetContent();
-        $recipe = RecipeAdapter::adapt($content);
+        /** @var RecipeAdapterService $adapterService */
+        $adapterService = app(RecipeAdapterService::class);
+        $adapter = $adapterService->getAdapter($url);
+        $recipe = $adapter::adapt($content);
         $recipe->save();
 
         if ($content['imageSrc'] && $image = file_get_contents($content['imageSrc'])) {

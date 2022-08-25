@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Adapters\Valdemarsro;
+namespace App\Http\Adapters\Nemligcom;
 
+use App\Http\Adapters\RecipeAdapterInterface;
 use App\Models\Recipe;
 use Illuminate\Support\Arr;
 
-class RecipeAdapter
+class RecipeAdapter implements RecipeAdapterInterface
 {
     static public function adapt(array $data): Recipe
     {
@@ -40,17 +41,10 @@ class RecipeAdapter
      */
     public static function extractTimeFromString(?string $string): ?int
     {
-        $pattern = '/(\d+) timer?/';
-        preg_match($pattern, $string, $matches);
-
-        if ($matches) {
-            return $matches[1] * 60;
-        }
-
-        $pattern = '/(\d+) min/';
-        preg_match($pattern, $string, $matches);
-        if ($matches) {
-            return $matches[1];
+        $pattern = '/(\d+)/u';
+        preg_match_all($pattern, $string, $matches);
+        if ($lastMatchPair = reset($matches)) {
+            return reset($lastMatchPair);
         }
 
         return null;
