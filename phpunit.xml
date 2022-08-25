@@ -18,6 +18,7 @@
         </include>
         <report>
             <clover outputFile="clover.xml"/>
+            <html outputDirectory="reports/html-coverage" lowUpperBound="50" highLowerBound="90"/>
         </report>
     </coverage>
     <php>

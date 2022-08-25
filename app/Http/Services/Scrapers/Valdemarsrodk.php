@@ -3,6 +3,7 @@
 namespace App\Http\Services\Scrapers;
 
 use App\Exceptions\MissingRecipeNumberOfPersons;
+use Illuminate\Support\Facades\Http;
 
 class Valdemarsrodk implements ScraperInterface
 {
@@ -54,8 +55,7 @@ class Valdemarsrodk implements ScraperInterface
 
     private function loadPageHtml(string $url): string
     {
-        // TODO use Guzzle to be able to Mock this
-        $content = file_get_contents($url);
+        $content = Http::get($url)->body();
         if (!$content) {
             throw new \Exception('URL not found');
         }

@@ -55,12 +55,7 @@ class ScrapeService
     private function getScraper(string $url): ScraperInterface
     {
         $scraperClassName = $this->getScraperClassNameFromUrl($url);
-        $scraper = app('App\Http\Services\Scrapers\\' . $scraperClassName, ['url' => $url]);
-        if (!is_a($scraper, ScraperInterface::class)) {
-            throw new \Exception('Scraper class ' . $scraperClassName . ' does not implement ' . ScraperInterface::class);
-        }
-
-        return $scraper;
+        return app('App\Http\Services\Scrapers\\' . $scraperClassName, ['url' => $url]);
     }
 
     private function getScraperClassNameFromUrl(string $url): string
