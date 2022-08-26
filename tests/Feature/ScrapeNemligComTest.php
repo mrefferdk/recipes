@@ -21,8 +21,6 @@ class ScrapeNemligComTest extends TestCase
 
     public function testScrape()
     {
-
-        // TODO mock scraper result. Right now the actual site is being scraped.
         $user = User::factory()->create();
         $response = $this->actingAs($user)->post('/api/v1/scrape', [
             'url' => 'https://www.nemlig.com/opskrifter/some-recipe'
@@ -35,11 +33,18 @@ class ScrapeNemligComTest extends TestCase
             'number' => 4,
             'active' => 0,
         ]);
+
+        $this->assertDatabaseCount('ingredients', 9);
+        $this->assertDatabaseHas('ingredients', [
+            'name' => 'Basilikum',
+            'amount' => '1',
+            'type' => 'håndfuld',
+            'order' => 1,
+        ]);
     }
 
     public function testAlreadyScraped()
     {
-        // TODO mock scraper result. Right now the actual site is being scraped.
         $user = User::factory()->create();
         $this->actingAs($user)->post('/api/v1/scrape', [
             'url' => 'https://www.nemlig.com/opskrifter/some-recipe'

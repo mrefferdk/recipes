@@ -34,7 +34,7 @@ class RecipeAdapter implements RecipeAdapterInterface
     }
 
     /**
-     * Extracts the first number in a string. fx in "10-30 min" it returns "10"
+     * Extracts the last number in a string. fx in "10-30 min" it returns "30"
      *
      * @param ?string $string
      * @return int|null
@@ -43,8 +43,8 @@ class RecipeAdapter implements RecipeAdapterInterface
     {
         $pattern = '/(\d+)/u';
         preg_match_all($pattern, $string, $matches);
-        if ($lastMatchPair = reset($matches)) {
-            return reset($lastMatchPair);
+        if ($lastMatchPair = end($matches)) {
+            return end($lastMatchPair);
         }
 
         return null;

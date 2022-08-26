@@ -25,7 +25,6 @@ class ScrapeValdermarsroTest extends TestCase
 
     public function testScrape()
     {
-        // TODO mock scraper result. Right now the actual site is being scraped.
         $user = User::factory()->create();
         $response = $this->actingAs($user)->post('/api/v1/scrape', [
             'url' => 'https://www.valdemarsro.dk/something_fake_recipe'
@@ -38,11 +37,18 @@ class ScrapeValdermarsroTest extends TestCase
             'number' => 4,
             'active' => 0,
         ]);
+
+        $this->assertDatabaseCount('ingredients', 22);
+        $this->assertDatabaseHas('ingredients', [
+            'name' => "stødt koriander",
+            'amount' => '1',
+            'type' => 'tsk',
+            'order' => 1,
+        ]);
     }
 
     public function testAlreadyScraped()
     {
-        // TODO mock scraper result. Right now the actual site is being scraped.
         $user = User::factory()->create();
         $this->actingAs($user)->post('/api/v1/scrape', [
             'url' => 'https://www.valdemarsro.dk/something_fake_recipe'
@@ -54,8 +60,6 @@ class ScrapeValdermarsroTest extends TestCase
 
         $response->assertStatus(400);
     }
-
-
 
     private function mockHttpRequest(): void
     {
