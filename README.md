@@ -20,6 +20,6 @@ composer install --ignore-platform-reqs
 ## Useful commands
 `sail artisan db:seed` populates your development database with content
 
-`sail test` runs al automatic tests and generates coverage report
+`sail test` runs all automatic tests and generates coverage report
 
 `vendor/phpstan/phpstan/phpstan` runs PHP Stan static analysis
