@@ -20,7 +20,7 @@ jobs:
       - name: ls -a via OPEN SSH Private Key
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: ./update_recipes.sh
+          command: ~/www/update_recipes.sh
           host: linux123.unoeuro.com
           username: effersoe.net
           password: ${{ secrets.HOST_PASSWORD }}
