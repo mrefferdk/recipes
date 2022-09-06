@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ScrapeService
 {
-
     public function isAlreadyScraped(string $url)
     {
         $found = ScrapedRecipe::where('url', $url)->count();
@@ -66,6 +65,4 @@ class ScrapeService
         $hostname = str_replace(['www','.'], '', $hostname);
         return ucfirst(strtolower($hostname));
     }
-
-
 }

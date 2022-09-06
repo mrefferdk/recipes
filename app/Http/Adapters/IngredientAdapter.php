@@ -7,7 +7,7 @@ use Illuminate\Support\Arr;
 
 class IngredientAdapter
 {
-    static public function adapt(array $data, int $order = 0): Ingredient
+    public static function adapt(array $data, int $order = 0): Ingredient
     {
         $amount = Arr::get($data, 'amount');
         $unit = Arr::get($data, 'unit');

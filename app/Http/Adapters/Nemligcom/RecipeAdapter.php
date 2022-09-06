@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 
 class RecipeAdapter implements RecipeAdapterInterface
 {
-    static public function adapt(array $data): Recipe
+    public static function adapt(array $data): Recipe
     {
         $title = Arr::get($data, 'title');
         $imageSrc = Arr::get($data, 'imageSrc');
