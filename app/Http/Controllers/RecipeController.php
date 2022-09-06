@@ -103,5 +103,4 @@ class RecipeController extends Controller
 
         return redirect('/recipes/' . $recipe->id);
     }
-
 }
