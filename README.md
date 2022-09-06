@@ -23,3 +23,4 @@ composer install --ignore-platform-reqs
 `sail test` runs all automatic tests and generates coverage report
 
 `vendor/phpstan/phpstan/phpstan` runs PHP Stan static analysis
+`vendor/squizlabs/php_codesniffer/bin/phpcs` runs PHP Codesniffer analysis
