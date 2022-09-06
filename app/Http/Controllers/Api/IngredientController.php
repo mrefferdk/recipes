@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ingredient;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
@@ -11,7 +12,7 @@ class IngredientController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function index()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Services\Scrapers;
 
 use App\Exceptions\MissingRecipeNumberOfPersons;
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class Valdemarsrodk implements ScraperInterface
@@ -46,18 +47,17 @@ class Valdemarsrodk implements ScraperInterface
 
         $pattern = '@<div class="post-recipe">(.*)\n(.*)@m';
         if (!preg_match($pattern, $html, $matches)) {
-            throw new \Exception('HTML is not as expected');
+            throw new Exception('HTML is not as expected');
         }
 
         return $matches[1];
-
     }
 
     private function loadPageHtml(string $url): string
     {
         $content = Http::get($url)->body();
         if (!$content) {
-            throw new \Exception('URL not found');
+            throw new Exception('URL not found');
         }
         return $content;
     }
@@ -81,7 +81,7 @@ class Valdemarsrodk implements ScraperInterface
         $pattern = '@\'pers.\', (\d)@';
         preg_match($pattern, $this->getMetaData(), $matches);
         if (!isset($matches[1])) {
-            throw new MissingRecipeNumberOfPersons;
+            throw new MissingRecipeNumberOfPersons();
         }
 
         return $matches[1];
@@ -96,7 +96,7 @@ class Valdemarsrodk implements ScraperInterface
 
         // Remove garbage in the end
         if ($lastTagPos = mb_strrpos($descriptionString, '</p>')) {
-            $descriptionString = mb_substr($descriptionString, 0, $lastTagPos+4);
+            $descriptionString = mb_substr($descriptionString, 0, $lastTagPos + 4);
         }
 
         return $descriptionString;
@@ -118,7 +118,7 @@ class Valdemarsrodk implements ScraperInterface
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function getIngredients(): array
     {
@@ -159,15 +159,12 @@ class Valdemarsrodk implements ScraperInterface
                 continue;
             }
 
-            throw new \Exception('Problem translation ingredient string: ' .$ingredientString);
+            throw new Exception('Problem translation ingredient string: ' . $ingredientString);
         }
 
         if (!$ingredients) {
-            throw new \Exception('No ingredients found');
+            throw new Exception('No ingredients found');
         }
         return $ingredients;
     }
-
-
-
 }

@@ -4,11 +4,11 @@ namespace App\Http\Services;
 
 use App\Models\Ingredient;
 use App\Models\Recipe;
+use Exception;
 use Illuminate\Http\Request;
 
 class RecipeService
 {
-
     public function createRecipeWithIngredients(Request $request): Recipe
     {
         $recipe = new Recipe();
@@ -22,7 +22,7 @@ class RecipeService
         $recipe = Recipe::find($id);
 
         if (!$recipe) {
-            throw new \Exception('Recipe is not found');
+            throw new Exception('Recipe is not found');
         }
 
         // Find all existing ingredients

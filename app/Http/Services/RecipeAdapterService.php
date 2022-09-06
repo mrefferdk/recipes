@@ -6,7 +6,6 @@ use App\Http\Adapters\RecipeAdapterInterface;
 
 class RecipeAdapterService
 {
-
     public function getAdapter(string $url): RecipeAdapterInterface
     {
         $folderName = $this->getFolderNameFromUrl($url);

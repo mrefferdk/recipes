@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Scrapers;
 
+use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
@@ -41,7 +42,7 @@ class Nemligcom implements ScraperInterface
     {
         $pattern = '@"content":(.*)\r\n@';
         if (!preg_match($pattern, $this->html, $matches)) {
-            throw new \Exception('HTML is not as expected');
+            throw new Exception('HTML is not as expected');
         }
         $json = $matches[1];
         $trimmed = rtrim($json, ',');
@@ -53,7 +54,7 @@ class Nemligcom implements ScraperInterface
     {
         $content = Http::get($url)->body();
         if (!$content) {
-            throw new \Exception('URL not found');
+            throw new Exception('URL not found');
         }
         return $content;
     }
@@ -95,7 +96,7 @@ class Nemligcom implements ScraperInterface
 
     /**
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function getIngredients(): array
     {
@@ -115,7 +116,7 @@ class Nemligcom implements ScraperInterface
             }
         }
         if (!$ingredients) {
-            throw new \Exception('No ingredients found');
+            throw new Exception('No ingredients found');
         }
         return $ingredients;
     }

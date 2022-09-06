@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use \App\Models\Ingredient;
+use App\Models\Ingredient;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Recipe extends Model
 {
@@ -26,12 +27,10 @@ class Recipe extends Model
         ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function ingredients(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function ingredients(): HasMany
     {
         return $this->hasMany(Ingredient::class, 'recipe_id');
     }
-
-
 }

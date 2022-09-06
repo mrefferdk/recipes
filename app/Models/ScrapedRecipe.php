@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use \App\Models\Ingredient;
+use App\Models\Ingredient;
 
 class ScrapedRecipe extends Model
 {
@@ -19,6 +19,4 @@ class ScrapedRecipe extends Model
     {
         return $this->hasOne(Recipe::class, 'id');
     }
-
-
 }
