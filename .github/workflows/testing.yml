@@ -28,7 +28,7 @@ jobs:
           mkdir -p database
           touch database/database.sqlite
       - name: PHPCS check
-          run: ./vendor/bin/phpcs
+        run: ./vendor/bin/phpcs
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
          XDEBUG_MODE: coverage
