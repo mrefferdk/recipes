@@ -30,5 +30,4 @@ class RecipeController extends Controller
         $recipe = Recipe::with('ingredients')->find($id);
         return response()->json($recipe);
     }
-
 }
