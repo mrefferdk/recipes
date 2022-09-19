@@ -28,7 +28,6 @@ class RecipeAdapter implements RecipeAdapterInterface
             'number' => $persons,
             'work_time' => $workTime,
             'cooking_time' => $cookingTime,
-            'user_id' => Auth()->user()->id,
         ]);
 
         return $recipe;

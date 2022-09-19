@@ -27,6 +27,7 @@ class ScrapeService
 
         // TODO modify and use RecipeService to save the adapted content
         $recipe = $adapter::adapt($content);
+        $recipe->user_id = Auth()->user()?->id;
         $recipe->save();
 
         if ($content['imageSrc'] && $image = file_get_contents($content['imageSrc'])) {

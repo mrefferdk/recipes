@@ -31,7 +31,7 @@ class RecipeController extends Controller
         //dd(auth()->user());
         /** @var Recipe $recipe */
         $recipe = Recipe::with('ingredients')->find($id);
-        //AccessService::hasAccess($recipe);
+        //AccessService::hasReadAccess($recipe);
         return response()->json($recipe);
     }
 }

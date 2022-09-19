@@ -48,12 +48,8 @@
             console.log('{{csrf_token()}}', 'weeeee1');
             console.log('{{csrf_token()}}', 'weeeee2');
             resetStatusMessage();
-            $.ajax(link, {
-                method: 'POST',
-                url: $('#url').val(),
-                data: {
-                    _token: '{{csrf_token()}}'
-                },
+            $.post(link, {
+                'url': $('#url').val()
             }).fail(function (response) {
                 console.log(response);
                 updateStatusMessage(response.responseJSON.error);

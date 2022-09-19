@@ -3,6 +3,8 @@
 namespace Tests\Unit\Adapters\Nemligcom;
 
 use App\Http\Adapters\Nemligcom\RecipeAdapter;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use PHPUnit\Framework\TestCase;
 
 class RecipeAdapterTest extends TestCase

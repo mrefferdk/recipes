@@ -63,7 +63,7 @@ class RecipeController extends Controller
     public function show(Request $request, int $id): View
     {
         $recipe = Recipe::find($id);
-        AccessService::hasAccess($recipe);
+        AccessService::hasReadAccess($recipe);
 
         $totalTime = (int) $recipe->work_time + (int) $recipe->cooking_time;
         return view('recipes.show', [
@@ -80,7 +80,7 @@ class RecipeController extends Controller
     {
         /** @var Recipe $recipe */
         $recipe = Recipe::find($id);
-        AccessService::hasAccess($recipe);
+        AccessService::hasWriteAccess($recipe);
 
         $numberOfIngredientFields = count($recipe->ingredients) + 10;
         return view('recipes.edit', [
@@ -99,7 +99,7 @@ class RecipeController extends Controller
     {
         /** @var Recipe $recipe */
         $recipe = Recipe::find($id);
-        AccessService::hasAccess($recipe);
+        AccessService::hasReadAccess($recipe);
 
         /** @var RecipeService $recipeService */
         $recipeService = app(RecipeService::class);
