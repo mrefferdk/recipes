@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('recipes') }}">
-                        <img class="bg-cover h-12" src="{{ asset('/images/23462.png') }}"/>
+                        <x-logo/>
                     </a>
 
                     <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8">
@@ -15,21 +15,30 @@
                     <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8">
                         <a href="{{ route('recipes') }}">Alle opskrifter</a>
                     </div>
+                    @if (Auth()->user())
                     <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8">
                         <a href="{{ route('scrape') }}">Scraper</a>
                     </div>
                     <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8">
                         <a href="{{ route('recipes.create') }}">Opret ny</a>
                     </div>
+                    @endif
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                @if (Auth()->user())
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <x-button>Log ud</x-button>
                 </form>
+                @else
+                    <form method="GET" action="{{ route('login') }}">
+                        @csrf
+                        <x-button>Log ind</x-button>
+                    </form>
+                @endif
             </div>
 
         </div>

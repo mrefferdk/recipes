@@ -27,7 +27,7 @@ class ScrapeController extends Controller
             $recipe = $scrapeService->scrapeAndSave($url);
             return response()->json(['recipe' => $recipe->toArray(), 'url' => '/recipes/' . $recipe->id]);
         } catch (Exception $e) {
-            Log::error('Exception found in '. __METHOD__ . ' with url: ' . $url);
+            Log::error('Exception found in '. __METHOD__ . ' with url: ' . $url, ['e' => $e->getMessage()]);
             return response()->json(['error' => 'No scraper found for provided domain or some other error has occured'], 501);
         }
     }

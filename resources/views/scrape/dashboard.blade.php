@@ -30,17 +30,30 @@
 
     <script>
 
+
         $('#scrapeForm').submit(function (e) {
             e.preventDefault();
             initiateCopy()
         });
 
         function initiateCopy() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             const link = '/api/v1/scrape/';
             disableButton();
+            console.log('{{csrf_token()}}', 'weeeee1');
+            console.log('{{csrf_token()}}', 'weeeee2');
             resetStatusMessage();
-            $.post(link, {
-                'url': $('#url').val()
+            $.ajax(link, {
+                method: 'POST',
+                url: $('#url').val(),
+                data: {
+                    _token: '{{csrf_token()}}'
+                },
             }).fail(function (response) {
                 console.log(response);
                 updateStatusMessage(response.responseJSON.error);
