@@ -13,6 +13,8 @@
                     <form method="POST" action="{{route('api.scrape')}}" id="scrapeForm">
                         @csrf
                         @method('POST')
+                        <input type="hidden" name="userId" id="userId" value="{{$userId}}"/>
+                        <input type="hidden" name="userIdHash" id="userIdHash" value="{{$userIdHash}}"/>
                         <div class="mt-4">
                             <x-label for="url" :value="__('URL')" />
                             <x-input id="url" class="block mt-1 w-full" type="text" name="url" :placeholder="__('Skriv fuld URL')" value="https://www.valdemarsro.dk/verdens-nemmeste-og-bedste-hjemmebagte-boller/" required />
@@ -49,7 +51,9 @@
             console.log('{{csrf_token()}}', 'weeeee2');
             resetStatusMessage();
             $.post(link, {
-                'url': $('#url').val()
+                url: $('#url').val(),
+                userId: $('#userId').val(),
+                userIdHash: $('#userIdHash').val()
             }).fail(function (response) {
                 console.log(response);
                 updateStatusMessage(response.responseJSON.error);
