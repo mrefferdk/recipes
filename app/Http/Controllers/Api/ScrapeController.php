@@ -15,7 +15,7 @@ class ScrapeController extends Controller
      *
      * @return JsonResponse
      */
-    public function index(Request $request, ScrapeService $scrapeService)
+    public function store(Request $request, ScrapeService $scrapeService)
     {
         $url = $request->get('url');
         // TODO create middleware for this
