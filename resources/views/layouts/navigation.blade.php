@@ -34,10 +34,20 @@
                     <x-button>Log ud</x-button>
                 </form>
                 @else
+                    <div class="flex-col pr-6">
+                        <form method="GET" action="{{ route('register') }}">
+                            @csrf
+                            <x-button>Opret bruger</x-button>
+                        </form>
+                    </div>
+                <div class="flex-col">
                     <form method="GET" action="{{ route('login') }}">
                         @csrf
                         <x-button>Log ind</x-button>
                     </form>
+                </div>
+
+
                 @endif
             </div>
 
