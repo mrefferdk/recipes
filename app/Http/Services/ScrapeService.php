@@ -17,14 +17,17 @@ class ScrapeService
         return $found !== 0;
     }
 
-    public function scrapeAndSave(string $url): Recipe
+    public function scrapeAndSave(string $url, int $userId): Recipe
     {
         $scraper = $this->getScraper($url);
         $content = $scraper->scrapeAndGetContent();
         /** @var RecipeAdapterService $adapterService */
         $adapterService = app(RecipeAdapterService::class);
         $adapter = $adapterService->getAdapter($url);
+
+        // TODO modify and use RecipeService to save the adapted content
         $recipe = $adapter::adapt($content);
+        $recipe->user_id = $userId;
         $recipe->save();
 
         if ($content['imageSrc'] && $image = file_get_contents($content['imageSrc'])) {

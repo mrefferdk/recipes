@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Services\AccessService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
@@ -27,7 +28,10 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
+        //dd(auth()->user());
+        /** @var Recipe $recipe */
         $recipe = Recipe::with('ingredients')->find($id);
+        //AccessService::hasReadAccessOrThrowException($recipe);
         return response()->json($recipe);
     }
 }

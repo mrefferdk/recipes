@@ -6,6 +6,7 @@ use App\Models\Ingredient;
 use App\Models\Recipe;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeService
 {
@@ -65,8 +66,8 @@ class RecipeService
         $recipe->number = $request->get('number');
         $recipe->cooking_time = (int) trim($request->get('cooking_time'));
         $recipe->work_time = (int) trim($request->get('work_time'));
-        $recipe->image_path = '$fileName';
         $recipe->active = $request->get('active') ?? false;
+        $recipe->user_id = Auth()->user()->id;
         $recipe->save();
     }
 }

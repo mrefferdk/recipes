@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\AccessService;
 use App\Http\Services\RecipeService;
-use App\Models\Ingredient;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class RecipeController extends Controller
@@ -20,7 +18,7 @@ class RecipeController extends Controller
      */
     public function index(): View
     {
-        $recipes = DB::table('recipes')->orderBy('title')->get();
+        $recipes = Recipe::ForUser()->orderBy('title')->get();
         return view('recipes.list', ['recipes' => $recipes]);
     }
 
@@ -65,12 +63,14 @@ class RecipeController extends Controller
     public function show(Request $request, int $id): View
     {
         $recipe = Recipe::find($id);
+        AccessService::hasReadAccessOrThrowException($recipe);
 
         $totalTime = (int) $recipe->work_time + (int) $recipe->cooking_time;
         return view('recipes.show', [
             'recipe' => $recipe,
             'showEditOptions' => $request->exists('showEditOptions'),
             'totalTime' => $totalTime,
+            'canEdit' => AccessService::hasWriteAccess($recipe),
         ]);
     }
 
@@ -81,6 +81,8 @@ class RecipeController extends Controller
     {
         /** @var Recipe $recipe */
         $recipe = Recipe::find($id);
+        AccessService::hasWriteAccessOrThrowException($recipe);
+
         $numberOfIngredientFields = count($recipe->ingredients) + 10;
         return view('recipes.edit', [
             'method' => 'PUT',
@@ -96,6 +98,10 @@ class RecipeController extends Controller
      */
     public function update(Request $request, int $id): RedirectResponse
     {
+        /** @var Recipe $recipe */
+        $recipe = Recipe::find($id);
+        AccessService::hasReadAccessOrThrowException($recipe);
+
         /** @var RecipeService $recipeService */
         $recipeService = app(RecipeService::class);
 

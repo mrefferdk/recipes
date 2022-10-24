@@ -9,6 +9,7 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\ValidateRecipeInput;
+use App\Http\Middleware\ValidateUserHash;
 use App\Http\Middleware\VerifyCsrfToken;
 use Fruitcake\Cors\HandleCors;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
@@ -85,5 +86,6 @@ class Kernel extends HttpKernel
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
         'recipe.form.validate' => ValidateRecipeInput::class,
+        'validate.user.hash' => ValidateUserHash::class,
     ];
 }

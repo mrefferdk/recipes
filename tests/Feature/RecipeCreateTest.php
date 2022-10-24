@@ -36,7 +36,6 @@ class RecipeCreateTest extends TestCase
             'number' => 1,
             'active' => 0,
         ]);
-
     }
 
     public function testUpdate()

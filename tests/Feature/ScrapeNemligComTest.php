@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Http\Services\UserHashService;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
@@ -17,13 +18,17 @@ class ScrapeNemligComTest extends TestCase
     {
         parent::setUp();
         $this->mockHttpRequest();
+        $this->userId = 1;
+        $this->userIdHash = UserHashService::getUserHashById($this->userId);
     }
 
     public function testScrape()
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->post('/api/v1/scrape', [
-            'url' => 'https://www.nemlig.com/opskrifter/some-recipe'
+            'url' => 'https://www.nemlig.com/opskrifter/some-recipe',
+            'userIdHash' => $this->userIdHash,
+            'userId' => $this->userId,
         ]);
 
         $response->assertStatus(200);
@@ -47,11 +52,15 @@ class ScrapeNemligComTest extends TestCase
     {
         $user = User::factory()->create();
         $this->actingAs($user)->post('/api/v1/scrape', [
-            'url' => 'https://www.nemlig.com/opskrifter/some-recipe'
+            'url' => 'https://www.nemlig.com/opskrifter/some-recipe',
+            'userIdHash' => $this->userIdHash,
+            'userId' => $this->userId,
         ]);
 
         $response = $this->actingAs($user)->post('/api/v1/scrape', [
-            'url' => 'https://www.nemlig.com/opskrifter/some-recipe'
+            'url' => 'https://www.nemlig.com/opskrifter/some-recipe',
+            'userIdHash' => $this->userIdHash,
+            'userId' => $this->userId,
         ]);
 
         $response->assertStatus(400);
@@ -61,7 +70,9 @@ class ScrapeNemligComTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->actingAs($user)->post('/api/v1/scrape', [
-            'url' => 'https://www.something-incorrect.com/recipe_1'
+            'url' => 'https://www.something-incorrect.com/recipe_1',
+            'userIdHash' => $this->userIdHash,
+            'userId' => $this->userId,
         ]);
 
         $response->assertStatus(501);

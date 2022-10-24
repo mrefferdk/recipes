@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Ingredient;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Recipe extends Model
 {
@@ -24,6 +25,7 @@ class Recipe extends Model
         'cooking_time',
         'work_time',
         'ingredients',
+        'user_id',
         ];
 
     /**
@@ -32,5 +34,16 @@ class Recipe extends Model
     public function ingredients(): HasMany
     {
         return $this->hasMany(Ingredient::class, 'recipe_id');
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id');
+    }
+
+    public function scopeForUser($query)
+    {
+        // TODO add column "for_all" to make globally visible recipes
+        return $query->where('user_id', auth()->user()?->id)->orWhere('user_id', '=', null);
     }
 }

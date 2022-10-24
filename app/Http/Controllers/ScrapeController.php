@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Ingredient;
+use App\Http\Services\UserHashService;
 
 class ScrapeController extends Controller
 {
     public function index()
     {
-        return view('scrape.dashboard');
+        return view('scrape.dashboard', [
+            'userId' => Auth()->user()->id,
+            'userIdHash' => UserHashService::getUserHash(),
+        ]);
     }
 }
