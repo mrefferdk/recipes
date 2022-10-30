@@ -4,6 +4,9 @@ namespace Database\Factories;
 
 use App\Models\Recipe;
 use App\Models\User;
+use Faker\Provider\Lorem;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class RecipeFactory extends Factory
@@ -22,9 +25,10 @@ class RecipeFactory extends Factory
      */
     public function definition()
     {
+        $this->faker->addProvider(new \Faker\Provider\Lorem($this->faker));
         return [
-            'title' => $this->faker->sentence(3),
-            'body' => $this->faker->paragraphs(10, true),
+            'title' => $this->faker->sentence(),
+            'body' => $this->faker->sentence(),
             'number' => $this->faker->numberBetween(1, 10),
             'cooking_time' => $this->faker->numberBetween(1, 120),
             'work_time' => $this->faker->numberBetween(1, 120),

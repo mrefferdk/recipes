@@ -26,7 +26,7 @@ class AccessService
 
     public static function isAdmin(): bool
     {
-        return auth()->user()->admin;
+        return auth()->user()?->admin ?? false;
     }
 
     public static function hasWriteAccessOrThrowException(Recipe $recipe): bool
@@ -40,7 +40,11 @@ class AccessService
 
     public static function hasWriteAccess(Recipe $recipe): bool
     {
-        if ($recipe->user_id !== auth()->user()->id && !self::isAdmin()) {
+        if (self::isAdmin()) {
+            return true;
+        }
+
+        if ($recipe->user_id !== auth()->user()?->id) {
             return false;
         }
 
