@@ -25,11 +25,9 @@ class RecipeFactory extends Factory
      */
     public function definition()
     {
-        //$this->faker->addProvider('Lorem');
-        $factory = \Faker\Factory::create('en');
         $this->faker->addProvider(new \Faker\Provider\Lorem($this->faker));
         return [
-            'title' => $this->faker->numberBetween(),
+            'title' => $this->faker->sentence(),
             'body' => $this->faker->sentence(),
             'number' => $this->faker->numberBetween(1, 10),
             'cooking_time' => $this->faker->numberBetween(1, 120),
