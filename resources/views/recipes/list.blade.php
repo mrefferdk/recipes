@@ -17,9 +17,16 @@
                     </div>
                     @endauth
                     <h1 class="text-theme-black">Opskrifter</h1>
-                    <ul>
+                    <ul class="grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-3">
                         @foreach ($recipes as $recipe)
-                            <li><a href="{{ url('/recipes/' . $recipe->id) }}" class="text-theme-brown">{{$recipe->title}}</a></li>
+                            <a href="{{ url('/recipes/' . $recipe->id) }}" class="text-gray-900 no-underline shadow-sm bg-white my-1.5">
+                                <li>
+                                    <div class="main-image w-full bg-cover h-40" style="background-image: url(@if($recipe->image_path){{ asset('/storage/uploads/'.$recipe->image_path) }}@else {{ asset('/images/23462.png') }} @endif);"></div>
+                                    <div class="px-4 py-2">
+                                        {{$recipe->title}}
+                                    </div>
+                                </li>
+                            </a>
                         @endforeach
                     </ul>
                 </div>
