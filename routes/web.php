@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\ScrapeController;
@@ -26,6 +27,10 @@ Route::middleware(\App\Http\Middleware\Authenticate::class)->group(function () {
     Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
     Route::get('/recipes/{id}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
     Route::get('/scrape', [ScrapeController::class, 'index'])->name('scrape');
+    Route::get('/logout', function () {
+        Auth::guard('web')->logout();
+        return redirect('/');
+    });
 });
 
 Route::get('/', [RecipeController::class, 'index'])->name('recipes');
