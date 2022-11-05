@@ -8,16 +8,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-theme-orange text-theme-brown border-b border-gray-200">
-                    @auth
-                    <div class="float-right">
-                        <a href="{{ route('recipes.create') }}">
-                            <x-button>Ny opskrift</x-button>
-                        </a>
-                    </div>
-                    @endauth
-                    <h1 class="text-theme-black">Opskrifter</h1>
-                    <ul class="grid grid-flow-row-dense md:grid-cols-3 grid-rows-3 gap-3 grid-cols-2">
+                <div class="py-6 px-0 md:px-6 bg-theme-orange text-theme-brown border-b border-gray-200">
+                    <h1 class="text-theme-black pl-4 md:pl-0">Opskrifter</h1>
+                    <ul class="grid grid-flow-row-dense md:grid-cols-3 grid-rows-3 gap-3 grid-cols-2 pl-0">
                         @foreach ($recipes as $recipe)
                             <a href="{{ url('/recipes/' . $recipe->id) }}" class="text-gray-900 no-underline shadow-sm bg-white my-1.5">
                                 <li>
