@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="border-b border-gray-300">
-                    <a class="block p-2 no-underline text-theme-brown hover:text-theme-brown" href="{{ route('recipes.create') }}">Opret ny ops</a>
+                    <a class="block p-2 no-underline text-theme-brown hover:text-theme-brown" href="{{ route('recipes.create') }}">Opret ny opskrift</a>
                 </li>
                 <li class="border-b border-gray-300">
                     <a class="block p-2 no-underline text-theme-brown hover:text-theme-brown" href="{{ route('logout') }}">Log ud</a>
