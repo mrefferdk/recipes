@@ -17,7 +17,7 @@
                     </div>
                     @endauth
                     <h1 class="text-theme-black">Opskrifter</h1>
-                    <ul class="grid grid-flow-row-dense grid-cols-3 grid-rows-3 gap-3">
+                    <ul class="grid grid-flow-row-dense md:grid-cols-3 grid-rows-3 gap-3 grid-cols-2">
                         @foreach ($recipes as $recipe)
                             <a href="{{ url('/recipes/' . $recipe->id) }}" class="text-gray-900 no-underline shadow-sm bg-white my-1.5">
                                 <li>
