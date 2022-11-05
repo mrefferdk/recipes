@@ -33,6 +33,8 @@ Route::middleware(\App\Http\Middleware\Authenticate::class)->group(function () {
     });
 });
 
+Route::get('/ai', [\App\Http\Controllers\AiController::class, 'index']);
+Route::get('/movie', [\App\Http\Controllers\AiController::class, 'movieTest']);
 Route::get('/', [RecipeController::class, 'index'])->name('recipes');
 Route::get('/recipes', [RecipeController::class, 'index']);
 Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
