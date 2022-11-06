@@ -94,6 +94,32 @@ class RecipeController extends Controller
     }
 
     /**
+     * Show the form for deleting the specified resource.
+     */
+    public function deleteConfirmation(int $id): View
+    {
+        /** @var Recipe $recipe */
+        $recipe = Recipe::find($id);
+        AccessService::hasWriteAccessOrThrowException($recipe);
+
+        return view('recipes.delete', [
+            'action' => url('/recipes/' . $id),
+            'title' => 'Slet opskrift',
+            'recipe' => $recipe,
+        ]);
+    }
+
+    public function delete(int $id): RedirectResponse
+    {
+        $recipe = Recipe::find($id);
+        AccessService::hasWriteAccessOrThrowException($recipe);
+
+        Recipe::destroy([$id]);
+        //dd($recipe->delete());
+        return redirect('/recipes');
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, int $id): RedirectResponse
