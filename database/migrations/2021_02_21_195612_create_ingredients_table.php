@@ -20,7 +20,7 @@ class CreateIngredientsTable extends Migration
             $table->string('type')->nullable();
             $table->smallInteger('order');
             $table->timestamps();
-            $table->foreignId('recipe_id')->constrained('recipes');
+            $table->foreignId('recipe_id')->constrained('recipes')->onDelete('cascade');
         });
     }
 

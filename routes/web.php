@@ -26,6 +26,8 @@ Route::middleware(\App\Http\Middleware\Authenticate::class)->group(function () {
     Route::put('/recipes/{id}', [RecipeController::class, 'update'])->middleware('recipe.form.validate')->name('recipes.update');
     Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
     Route::get('/recipes/{id}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
+    Route::get('/recipes/{id}/delete', [RecipeController::class, 'deleteConfirmation'])->name('recipes.delete.confirmation');
+    Route::delete('/recipes/{id}', [RecipeController::class, 'delete'])->name('recipes.delete');
     Route::get('/scrape', [ScrapeController::class, 'index'])->name('scrape');
     Route::get('/logout', function () {
         Auth::guard('web')->logout();

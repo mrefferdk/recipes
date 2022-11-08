@@ -25,6 +25,7 @@
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="{{ asset('js/select2.js') }}"></script>
         <script src="{{ asset('js/typeahead.js') }}"></script>
+        <script src="/node_modules/tw-elements/dist/js/index.min.js"></script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-white">
