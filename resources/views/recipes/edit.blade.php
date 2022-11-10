@@ -12,11 +12,10 @@
                     <form method="POST" action="{{$action}}" enctype="multipart/form-data">
                         @csrf
                         @if (isset($method) && $method == 'PUT')
-                        @method('PUT')
+                            @method('PUT')
                         @endif
                         <h1>{{$title}}</h1>
                         <input type="hidden" id="recipe_id" value="{{$recipe->id}}"/>
-
 
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -58,8 +57,6 @@
                                 <x-input id="work_time" placeholder="min." class="text-center block mt-1 w-16" type="text" name="work_time" value="{{$recipe->work_time}}" required />
                             </div>
                         </div>
-
-
                         <div class="grid grid-cols-12 gap-4 mt-5">
                             <div class="col-span-5">
                                 <h3>{{_('Ingredienser')}}</h3>
@@ -73,10 +70,6 @@
                                 <textarea id="body" name="body" onkeyup="autoheight(this)" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full">{{$recipe->body}}</textarea>
                             </div>
                         </div>
-
-
-
-
                         <div>
                             <button type="submit" class="rounded-md shadow-sm px-5 mt-5 py-2 bg-blue-600 text-blue-50 hover:bg-blue-700 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">Gem</button>
                         </div>
