@@ -15,16 +15,22 @@
                     <div class="relative">
                         <h1 class="mt-10 text-black">{{$recipe->title}}</h1>
                         <div class="recipeMetaData">
-                            Antal personer: {{$recipe->number}}.
+                            <div class="float-left mr-3">Mængde: {{$recipe->number}} personer</div>
                             @if($recipe->cooking_time)
-                                <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg> Tilberedning: {{$recipe->cooking_time}} min.@endif
-                            @if($recipe->work_time)Arbejdstid: {{$recipe->work_time}} min.@endif
+                                <div class="float-left mr-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg> Tilberedning: {{$recipe->cooking_time}} min.
+                                </div>
+                            @endif
+
+                            @if($recipe->work_time)
+                                <div class="float-left">Arbejdstid: {{$recipe->work_time}} min.</div>
+                            @endif
                         </div>
 
                         @if($canEdit)
-                            <div class="absolute top-6 right-6">
+                            <div class="hidden md:block absolute top-6 right-6">
 
                                 <div class="float-right">
                                     <a class="no-underline text-gray-700" href="{{ route('recipes.delete.confirmation', $recipe->id) }}">
@@ -43,7 +49,7 @@
 
                             </div>
                         @endif
-                        <div class="grid">
+                        <div class="grid clear-both">
                             <div class="col-start-1 col-end-3">
                                 <h3 class="mt-10 font-bold">Ingredienser</h3>
 

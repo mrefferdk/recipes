@@ -42,7 +42,7 @@
                             <x-button>Opret bruger</x-button>
                         </form>
                     </div>
-                    <div class="flex-col">
+                    <div class="flex-col hidden sm:block">
                         <form method="GET" action="{{ route('login') }}">
                             @csrf
                             <x-button>Log ind</x-button>
@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="hidden fixed bg-white w-full text-right border-1 py-4 px-1" id="mobile-menu">
+    <div class="hidden absolute shadow-lg bg-white w-full text-right border-1 py-4 px-1" id="mobile-menu">
             <ul class="mr-4 font-bold">
             @if (Auth()->user())
                 <li class="border-b border-gray-300">
