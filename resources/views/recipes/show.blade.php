@@ -56,8 +56,7 @@
                                 <table>
                                     @foreach ($recipe->ingredients as $ingredient)
                                         <tr>
-                                            <td class="pr-2 md:pr-7 py-1 font-bold">{{$ingredient->amount}} {{$ingredient->type}}</td>
-                                            <td>{{$ingredient->name}}</td>
+                                            <td class="pr-2 md:pr-7 py-1 font-bold">{{$ingredient->amount}} {{$ingredient->type}} {{$ingredient->name}}</td>
                                         </tr>
                                     @endforeach
                                 </table>
