@@ -52,4 +52,13 @@ class AccessServiceTest extends TestCase
 
         $this->assertFalse(AccessService::hasWriteAccess($recipe));
     }
+
+    public function testWriteAccessAnonymousUser()
+    {
+        $recipe = Recipe::factory()->create([
+            'user_id' => null,
+        ]);
+        
+        $this->assertFalse(AccessService::hasWriteAccess($recipe));
+    }
 }

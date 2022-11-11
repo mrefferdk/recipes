@@ -44,7 +44,7 @@ class AccessService
             return true;
         }
 
-        if ($recipe->user_id !== auth()->user()?->id) {
+        if (is_null(auth()->user()?->id) || $recipe->user_id !== auth()->user()?->id) {
             return false;
         }
 
