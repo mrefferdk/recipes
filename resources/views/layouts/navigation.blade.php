@@ -14,14 +14,14 @@
                         {{ $header }}
                     </div>
                     <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8 hidden md:block">
-                        <a class="" href="{{ route('recipes') }}">Alle opskrifter</a>
+                        <a class="text-white no-underline hover:underline font-bold" href="{{ route('recipes') }}">Alle opskrifter</a>
                     </div>
                     @if (Auth()->user())
                     <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8 hidden md:block">
-                        <a href="{{ route('scrape') }}">Scrape opskrift</a>
+                        <a class="text-white no-underline hover:underline font-bold" href="{{ route('scrape') }}">Scrape opskrift</a>
                     </div>
                     <div class="max-w-7xl mx-auto pl-6 px-4 sm:px-6 lg:px-8 hidden md:block">
-                        <a href="{{ route('recipes.create') }}">Ny opskrift</a>
+                        <a class="text-white no-underline hover:underline font-bold" href="{{ route('recipes.create') }}">Ny opskrift</a>
                     </div>
                     @endif
                 </div>
