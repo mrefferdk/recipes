@@ -65,6 +65,7 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         AccessService::hasReadAccessOrThrowException($recipe);
 
+        dd($recipe->tags);
         $totalTime = (int) $recipe->work_time + (int) $recipe->cooking_time;
         return view('recipes.show', [
             'recipe' => $recipe,

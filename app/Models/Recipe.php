@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Ingredient;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -43,7 +44,24 @@ class Recipe extends Model
 
     public function scopeForUser($query)
     {
+        $tagId = 1; // TODO hvordan får jeg denne parameter med??
         // TODO add column "for_all" to make globally visible recipes
-        return $query->where('user_id', auth()->user()?->id)->orWhere('user_id', '=', null);
+        /*dump(Recipe::where('user_id', auth()->user()?->id)->orWhere('user_id', '=', null)->whereHas('tags', function($q) use ($tagId) {
+            $q->where('tag_id', $tagId);
+        })->toSql());*/
+        return $query->where('recipe_tag.tag_id', 2)->where(function($query) {
+            $query->where('user_id', auth()->user()?->id)
+                ->orWhere('user_id', '=', null)
+            ;
+        })
+            ->join('recipe_tag', 'recipe_tag.recipe_id', '=', 'recipes.id')->dd();
+        return $query->where('recipe_tag.tag_id', 2)->where('user_id', auth()->user()?->id)->orWhere('user_id', '=', null)->join('recipe_tag', 'recipe_tag.recipe_id', '=', 'recipes.id')->dd();
+
+
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }
