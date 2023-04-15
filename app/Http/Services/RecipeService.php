@@ -72,7 +72,6 @@ class RecipeService
         $recipe->save();
 
         $recipe->tags()->detach();
-        //$existingTags = $existingTags->pluck('id')->toArray();
 
         $tag = Tag::find($request->get('top_category'));
         $recipe->tags()->save($tag);
