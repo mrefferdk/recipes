@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Recipe;
 use App\Models\User;
 use Database\Seeders\RecipeSeeder;
+use Database\Seeders\TagSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,7 +16,7 @@ class RecipeCreateTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // TODO
+        $this->seed(TagSeeder::class);
     }
 
     public function testCreate()
@@ -26,6 +27,7 @@ class RecipeCreateTest extends TestCase
             'body' => 'body',
             'number' => 1,
             'ingredients' => [],
+            'top_category' => 1,
         ]);
 
         $response->assertStatus(302);
@@ -50,6 +52,7 @@ class RecipeCreateTest extends TestCase
             'number' => 2,
             'active' => 1,
             'ingredients' => [],
+            'top_category' => 1,
         ]);
 
         $response->assertStatus(302);

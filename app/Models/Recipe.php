@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Ingredient;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -44,6 +45,24 @@ class Recipe extends Model
     public function scopeForUser($query)
     {
         // TODO add column "for_all" to make globally visible recipes
-        return $query->where('user_id', auth()->user()?->id)->orWhere('user_id', '=', null);
+        return $query->select(['recipes.id as recipeid', 'title', 'body', 'number', 'image_path'])->where(function ($query) {
+            $query->where('user_id', auth()->user()?->id)
+                ->orWhere('user_id', '=', null)
+            ;
+        });
+    }
+
+    public function scopeTag($query, $tagId = null)
+    {
+        if ($tagId) {
+            return $query->where('recipe_tag.tag_id', $tagId)
+                ->join('recipe_tag', 'recipe_tag.recipe_id', '=', 'recipes.id');
+        }
+        return $query;
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

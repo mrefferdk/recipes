@@ -7,6 +7,7 @@ use App\Http\Services\RecipeService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Recipe;
+use App\Models\Tag;
 use Illuminate\View\View;
 
 class RecipeController extends Controller
@@ -16,10 +17,14 @@ class RecipeController extends Controller
      *
      * @return View
      */
-    public function index(): View
+    public function index(Tag $tag): View
     {
-        $recipes = Recipe::ForUser()->orderBy('title')->get();
-        return view('recipes.list', ['recipes' => $recipes]);
+        if (!$tag->id) {
+            $tags = Tag::TopNavigation()->get();
+        }
+
+        $recipes = Recipe::ForUser()->Tag($tag->id)->orderBy('title')->get();
+        return view('recipes.list', ['recipes' => $recipes, 'selectedTag' => $tag, 'tags' => $tags ?? null]);
     }
 
     /**
@@ -35,6 +40,7 @@ class RecipeController extends Controller
             'action' => url('/recipes'),
             'title' => 'Opret opskrift',
             'recipe' => $recipe,
+            'tags' => Tag::TopNavigation()->get(),
         ]);
     }
 
@@ -89,7 +95,8 @@ class RecipeController extends Controller
             'action' => url('/recipes/' . $recipe->id),
             'title' => 'Rediger opskrift',
             'recipe' => $recipe,
-            'numberOfIngredientFields' => $numberOfIngredientFields
+            'numberOfIngredientFields' => $numberOfIngredientFields,
+            'tags' => Tag::TopNavigation()->get(),
         ]);
     }
 

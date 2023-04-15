@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\Tag;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,5 +70,10 @@ class RecipeService
         $recipe->active = $request->get('active') ?? false;
         $recipe->user_id = Auth()->user()->id;
         $recipe->save();
+
+        $recipe->tags()->detach();
+
+        $tag = Tag::find($request->get('top_category'));
+        $recipe->tags()->save($tag);
     }
 }
