@@ -44,20 +44,21 @@ class Recipe extends Model
 
     public function scopeForUser($query)
     {
-        $tagId = 1; // TODO hvordan får jeg denne parameter med??
         // TODO add column "for_all" to make globally visible recipes
-        /*dump(Recipe::where('user_id', auth()->user()?->id)->orWhere('user_id', '=', null)->whereHas('tags', function($q) use ($tagId) {
-            $q->where('tag_id', $tagId);
-        })->toSql());*/
-        return $query->where('recipe_tag.tag_id', 2)->where(function($query) {
+        return $query->select(['recipes.id as recipeid', 'title', 'body', 'number', 'image_path'])->where(function ($query) {
             $query->where('user_id', auth()->user()?->id)
                 ->orWhere('user_id', '=', null)
             ;
-        })
-            ->join('recipe_tag', 'recipe_tag.recipe_id', '=', 'recipes.id')->dd();
-        return $query->where('recipe_tag.tag_id', 2)->where('user_id', auth()->user()?->id)->orWhere('user_id', '=', null)->join('recipe_tag', 'recipe_tag.recipe_id', '=', 'recipes.id')->dd();
+        });
+    }
 
-
+    public function scopeTag($query, $tagId = null)
+    {
+        if ($tagId) {
+            return $query->where('recipe_tag.tag_id', $tagId)
+                ->join('recipe_tag', 'recipe_tag.recipe_id', '=', 'recipes.id');
+        }
+        return $query;
     }
 
     public function tags(): BelongsToMany

@@ -17,13 +17,12 @@ class CreateTagsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('title');
+            $table->string('slug');
             $table->string('type');
             $table->boolean('is_public')->default(false);
             $table->integer('order');
-
             $table->index(['type']);
-
-
+            $table->index(['slug']);
         });
     }
 

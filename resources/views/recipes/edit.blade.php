@@ -56,6 +56,14 @@
                                 <x-label for="work_time" :value="__('Arbejdstid')" />
                                 <x-input id="work_time" placeholder="min." class="text-center block mt-1 w-16" type="text" name="work_time" value="{{$recipe->work_time}}" required />
                             </div>
+                            <div class="mt-4">
+                                <x-label for="category" :value="__('Kategori')" />
+                                <select name="top_category" class="rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    @foreach($tags as $tag)
+                                    <option value="{{$tag->id}}" @if(in_array($tag->id, $recipe->tags->pluck('id')->toArray())) selected @endif>{{$tag->title}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                         <div class="grid grid-cols-12 gap-4 mt-5">
                             <div class="col-span-5">

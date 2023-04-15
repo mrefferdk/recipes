@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\ScrapeController;
 
 /*
@@ -36,6 +37,8 @@ Route::middleware(\App\Http\Middleware\Authenticate::class)->group(function () {
 });
 
 Route::get('/', [RecipeController::class, 'index'])->name('recipes');
+Route::get('/tags/{tag:slug}', [RecipeController::class, 'index']);
+Route::get('/tags', [TagController::class, 'index']);
 Route::get('/recipes', [RecipeController::class, 'index']);
 Route::get('/recipes/{id}', [RecipeController::class, 'show'])->name('recipes.show');
 
